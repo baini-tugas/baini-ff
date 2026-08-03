@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARBAINI - Adventure Quest</title>
+  <title>BAINI - Flappy Bird Fullscreen</title>
   <style>
-    /* --- CSS: LAYAR PENUH & DESAIN NEON CYBER ADVENTURE --- */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -13,26 +12,26 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    body {
-      background: #060913;
-      color: #fff;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
+    /* Memaksa Layar Penuh Tanpa Scrollbar */
+    html, body {
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      padding: 15px;
+      background: #050814;
+      color: #fff;
     }
 
-    header {
-      width: 100%;
-      max-width: 1200px;
+    /* Antarmuka Melayang (HUD) dengan Branding BAINI */
+    .hud {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      right: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 10px;
+      pointer-events: none;
+      z-index: 10;
     }
 
     .brand-title {
@@ -41,8 +40,8 @@
     }
 
     .brand-name {
-      font-size: 0.9rem;
-      letter-spacing: 3px;
+      font-size: 0.95rem;
+      letter-spacing: 4px;
       color: #ff007f;
       text-transform: uppercase;
       font-weight: bold;
@@ -50,21 +49,21 @@
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: #00f0ff;
       text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
-      animation: pulseGlow 2s infinite alternate;
     }
 
     .score-board {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       display: flex;
       gap: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 8px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px 25px;
       border-radius: 20px;
-      border: 1px solid rgba(0, 240, 255, 0.3);
+      border: 1px solid rgba(0, 240, 255, 0.4);
       box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+      backdrop-filter: blur(5px);
     }
 
     .score-board span {
@@ -72,102 +71,63 @@
       font-weight: bold;
     }
 
-    .game-container {
-      position: relative;
-      flex: 1;
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
+    /* Canvas Game Memenuhi Seluruh Layar Desktop */
     #gameCanvas {
-      background: #0b1120;
-      border: 2px solid #00f0ff;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.9);
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    footer {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-    }
-
-    .btn {
-      padding: 10px 30px;
-      font-size: 1rem;
-      font-weight: bold;
-      color: #fff;
-      background: linear-gradient(45deg, #00f0ff, #7928ca);
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
-      transition: all 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      background: #0a0f24;
     }
 
     .controls-hint {
-      font-size: 0.9rem;
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.95rem;
       color: #aaa;
-    }
-
-    @keyframes pulseGlow {
-      0% { text-shadow: 0 0 10px #00f0ff; }
-      100% { text-shadow: 0 0 20px #ff007f; }
+      background: rgba(0, 0, 0, 0.6);
+      padding: 6px 16px;
+      border-radius: 15px;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
 
-  <header>
+  <div class="hud">
     <div class="brand-title">
-      <span class="brand-name">Game Petualangan</span>
-      <h1>ARBAINI ADVENTURE QUEST</h1>
+      <span class="brand-name">WEBSITE GAME BAINI</span>
+      <h1>BAINI FLAPPY BIRD</h1>
     </div>
 
     <div class="score-board">
-      <div>Permata: <span id="gemsText">0 / 0</span></div>
-      <div>Level: <span id="levelText">1</span></div>
+      <div>Skor: <span id="scoreText">0</span></div>
+      <div>Rekor Baini: <span id="highScoreText">0</span></div>
     </div>
-  </header>
-
-  <div class="game-container">
-    <canvas id="gameCanvas"></canvas>
   </div>
 
-  <footer>
-    <button class="btn" id="startBtn">Mulai Petualangan</button>
-    <div class="controls-hint">Gunakan <b>Panah (Arrow Keys) / WASD</b> untuk mengendalikan Petualang!</div>
-  </footer>
+  <canvas id="gameCanvas"></canvas>
+
+  <div class="controls-hint">Tekan <b>SPASI</b> atau <b>Panah Atas</b> di keyboard untuk terbang!</div>
 
   <script>
-    /* --- JAVASCRIPT: LOGIKA PETUALANGAN --- */
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    const gemsText = document.getElementById('gemsText');
-    const levelText = document.getElementById('levelText');
-    const startBtn = document.getElementById('startBtn');
+    const scoreText = document.getElementById('scoreText');
+    const highScoreText = document.getElementById('highScoreText');
 
-    let currentLevel = 1;
-    let collectedGems = 0;
-    let totalGems = 0;
+    let score = 0;
+    let highScore = localStorage.getItem('bainiFlappyHighScore') || 0;
     let gameAnimationId = null;
-    let isGameRunning = false;
-    let portalActive = false;
+    let isGameRunning = true;
+    let frameCount = 0;
 
-    // Web Audio API
+    highScoreText.textContent = highScore;
+
+    // Web Audio API untuk Efek Suara
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playBeep(freq, type = 'sine', duration = 0.1) {
+    function playBeep(freq, type = 'sine', duration = 0.08) {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
@@ -182,111 +142,206 @@
     }
 
     function resizeCanvas() {
-      const container = document.querySelector('.game-container');
-      canvas.width = container.clientWidth;
-      canvas.height = container.clientHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
 
-    let player, gems, monsters, portal, keys = {};
+    let bird;
+    let pipes = [];
 
-    // Karakter Petualang
-    class Hero {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
+    class Bird {
+      constructor() {
+        this.x = 150;
+        this.y = canvas.height / 2;
         this.radius = 16;
-        this.speed = 5;
+        this.gravity = 0.45;
+        this.velocity = 0;
+        this.jumpPower = -8.5;
       }
 
       draw() {
-        ctx.shadowBlur = 15;
+        // Burung Neon Glowing
+        ctx.shadowBlur = 18;
         ctx.shadowColor = '#00f0ff';
         ctx.fillStyle = '#00f0ff';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Mahkota/Indikator Hero
+        // Mata Burung
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 6, 0, Math.PI * 2);
+        ctx.arc(this.x + 6, this.y - 4, 4, 0, Math.PI * 2);
         ctx.fill();
+
+        // Paruh Burung
+        ctx.shadowColor = '#ff007f';
+        ctx.fillStyle = '#ff007f';
+        ctx.beginPath();
+        ctx.moveTo(this.x + this.radius, this.y - 2);
+        ctx.lineTo(this.x + this.radius + 10, this.y + 2);
+        ctx.lineTo(this.x + this.radius, this.y + 6);
+        ctx.closePath();
+        ctx.fill();
+
         ctx.shadowBlur = 0;
+      }
+
+      flap() {
+        this.velocity = this.jumpPower;
+        playBeep(600, 'triangle', 0.06);
       }
 
       update() {
-        if ((keys['ArrowLeft'] || keys['a'] || keys['A']) && this.x - this.radius > 0) this.x -= this.speed;
-        if ((keys['ArrowRight'] || keys['d'] || keys['D']) && this.x + this.radius < canvas.width) this.x += this.speed;
-        if ((keys['ArrowUp'] || keys['w'] || keys['W']) && this.y - this.radius > 0) this.y -= this.speed;
-        if ((keys['ArrowDown'] || keys['s'] || keys['S']) && this.y + this.radius < canvas.height) this.y += this.speed;
+        this.velocity += this.gravity;
+        this.y += this.velocity;
+
+        // Cek Jatuh ke Dasar / Keluar Langit
+        if (this.y + this.radius >= canvas.height || this.y - this.radius <= 0) {
+          gameOver();
+        }
       }
     }
 
-    // Item Permata Harta Karun
-    class Gem {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.radius = 10;
-        this.angle = 0;
-      }
-
-      draw() {
-        this.angle += 0.05;
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = '#ffd700';
-        ctx.fillStyle = '#ffd700';
-        ctx.beginPath();
-        ctx.rect(-7, -7, 14, 14);
-        ctx.fill();
-
-        ctx.restore();
-        ctx.shadowBlur = 0;
-      }
-    }
-
-    // Monster Penjaga
-    class Monster {
-      constructor(x, y, dx, dy) {
-        this.x = x;
-        this.y = y;
-        this.radius = 18;
-        this.dx = dx;
-        this.dy = dy;
+    class Pipe {
+      constructor() {
+        this.x = canvas.width;
+        this.width = 80;
+        this.gap = 210; // Ukuran celah pilar
+        this.topHeight = Math.random() * (canvas.height - this.gap - 160) + 80;
+        this.bottomY = this.topHeight + this.gap;
+        this.speed = 4;
+        this.passed = false;
       }
 
       draw() {
         ctx.shadowBlur = 15;
-        ctx.shadowColor = '#ff0055';
-        ctx.fillStyle = '#ff0055';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.shadowColor = '#ff007f';
+        ctx.fillStyle = '#ff007f';
+
+        // Pilar Atas
+        ctx.fillRect(this.x, 0, this.width, this.topHeight);
+        
+        // Pilar Bawah
+        ctx.fillRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY);
+
         ctx.shadowBlur = 0;
       }
 
       update() {
-        this.x += this.dx;
-        this.y += this.dy;
-
-        // Pantulan dari dinding
-        if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) this.dx *= -1;
-        if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) this.dy *= -1;
+        this.x -= this.speed;
       }
     }
 
-    // Portal Sihir Ke Level Berikutnya
-    class Portal {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.radius = 25;
-        this.angle = 0;
+    function initGame() {
+      resizeCanvas();
+      bird = new Bird();
+      pipes = [];
+      score = 0;
+      frameCount = 0;
+      scoreText.textContent = score;
+      isGameRunning = true;
+
+      if (gameAnimationId) cancelAnimationFrame(gameAnimationId);
+      animate();
+    }
+
+    function gameOver() {
+      playBeep(130, 'sawtooth', 0.4);
+      isGameRunning = false;
+      cancelAnimationFrame(gameAnimationId);
+
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = '#ff007f';
+      ctx.fillStyle = '#ff007f';
+      ctx.font = 'bold 42px Segoe UI';
+      ctx.textAlign = 'center';
+      ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 15);
+
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#fff';
+      ctx.font = '20px Segoe UI';
+      ctx.fillText('Tekan tombol SPASI untuk mencoba lagi', canvas.width / 2, canvas.height / 2 + 30);
+    }
+
+    function animate() {
+      if (!isGameRunning) return;
+
+      // Bersihkan Canvas
+      ctx.fillStyle = '#0a0f24';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Munculkan Pilar Baru Secara Berkala
+      frameCount++;
+      if (frameCount % 105 === 0) {
+        pipes.push(new Pipe());
       }
 
-      draw() {
-        this
+      // Update & Gambar Pilar
+      pipes.forEach((pipe, index) => {
+        pipe.update();
+        pipe.draw();
+
+        // Cek Tabrakan Burung dengan Pilar
+        if (
+          bird.x + bird.radius > pipe.x &&
+          bird.x - bird.radius < pipe.x + pipe.width &&
+          (bird.y - bird.radius < pipe.topHeight || bird.y + bird.radius > pipe.bottomY)
+        ) {
+          gameOver();
+        }
+
+        // Cek Melewati Pilar & Tambah Skor
+        if (!pipe.passed && pipe.x + pipe.width < bird.x) {
+          pipe.passed = true;
+          score++;
+          scoreText.textContent = score;
+          playBeep(900, 'sine', 0.1);
+
+          if (score > highScore) {
+            highScore = score;
+            highScoreText.textContent = highScore;
+            localStorage.setItem('bainiFlappyHighScore', highScore);
+          }
+        }
+
+        // Hapus Pilar yang Sudah Keluar Layar
+        if (pipe.x + pipe.width < 0) {
+          pipes.splice(index, 1);
+        }
+      });
+
+      bird.update();
+      bird.draw();
+
+      gameAnimationId = requestAnimationFrame(animate);
+    }
+
+    // Input Keyboard Otomatis
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Space' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (isGameRunning) {
+          bird.flap();
+        } else {
+          initGame();
+        }
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      if (!isGameRunning) {
+        ctx.fillStyle = '#0a0f24';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    });
+
+    // Jalankan Game Otomatis Saat Dimuat
+    window.onload = initGame;
+  </script>
+</body>
+</html>
