@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BAINI - Flappy Bird River Park (Tamat)</title>
+  <title>BAINI - Flappy Bird Multi-Bioma</title>
   <style>
     * {
       box-sizing: border-box;
@@ -56,7 +56,7 @@
       font-size: 1.2rem;
       display: flex;
       gap: 20px;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
       padding: 10px 25px;
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.4);
@@ -98,7 +98,7 @@
     </div>
 
     <div class="score-board">
-      <div>Target Tamat: <span id="targetText">20</span></div>
+      <div>Lokasi: <span id="locationText" style="color:#00f0ff">Taman Sungai</span></div>
       <div>Skor: <span id="scoreText">0</span></div>
       <div>Rekor Baini: <span id="highScoreText">0</span></div>
     </div>
@@ -113,14 +113,14 @@
     const ctx = canvas.getContext('2d');
     const scoreText = document.getElementById('scoreText');
     const highScoreText = document.getElementById('highScoreText');
+    const locationText = document.getElementById('locationText');
 
-    const TARGET_SCORE = 20; // Skor untuk menamatkan game
+    const TARGET_SCORE = 20;
     let score = 0;
     let highScore = localStorage.getItem('bainiFlappyHighScore') || 0;
     let gameAnimationId = null;
     let isGameRunning = true;
     let frameCount = 0;
-    let isWon = false;
 
     highScoreText.textContent = highScore;
 
@@ -156,6 +156,7 @@
     let pipes = [];
     let clouds = [];
     let fireworks = [];
+    let snowFlakes = [];
 
     function initClouds() {
       clouds = [];
@@ -165,6 +166,18 @@
           y: Math.random() * (canvas.height * 0.35) + 30,
           speed: Math.random() * 0.8 + 0.3,
           scale: Math.random() * 0.5 + 0.8
+        });
+      }
+    }
+
+    function initSnow() {
+      snowFlakes = [];
+      for (let i = 0; i < 60; i++) {
+        snowFlakes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 3 + 1,
+          speed: Math.random() * 1.5 + 0.8
         });
       }
     }
@@ -236,11 +249,26 @@
       }
 
       draw() {
-        ctx.fillStyle = '#2e7d32';
+        let colorMain = '#2e7d32';
+        let colorBorder = '#1b5e20';
+
+        // Sesuaikan Warna Pilar dengan Bioma
+        if (score >= 5 && score < 10) { // Gurun
+          colorMain = '#d4a373';
+          colorBorder = '#bc6c25';
+        } else if (score >= 10 && score < 15) { // Salju
+          colorMain = '#90e0ef';
+          colorBorder = '#0077b6';
+        } else if (score >= 15) { // Kota
+          colorMain = '#3a0ca3';
+          colorBorder = '#f72585';
+        }
+
+        ctx.fillStyle = colorMain;
         ctx.fillRect(this.x, 0, this.width, this.topHeight);
         ctx.fillRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY - 70);
 
-        ctx.fillStyle = '#1b5e20';
+        ctx.fillStyle = colorBorder;
         ctx.fillRect(this.x - 4, this.topHeight - 20, this.width + 8, 20);
         ctx.fillRect(this.x - 4, this.bottomY, this.width + 8, 20);
       }
@@ -289,76 +317,158 @@
       }
     }
 
-    function drawBackground() {
-      let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      skyGradient.addColorStop(0, '#4fc3f7');
-      skyGradient.addColorStop(0.5, '#e0f7fa');
-      skyGradient.addColorStop(1, '#81c784');
-      ctx.fillStyle = skyGradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // MEMUAT & MENGGAMBAR TEMA/LATAR BELAKANG DENGAN SKOR
+    function drawDynamicBackground() {
+      // 1. BIOMA TAMAN SUNGAI (Skor 0 - 4)
+      if (score < 5) {
+        locationText.textContent = "Taman Sungai 🌳";
+        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        skyGradient.addColorStop(0, '#4fc3f7');
+        skyGradient.addColorStop(0.5, '#e0f7fa');
+        skyGradient.addColorStop(1, '#81c784');
+        ctx.fillStyle = skyGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#ffeb3b';
-      ctx.shadowBlur = 30;
-      ctx.shadowColor = '#ffff00';
-      ctx.beginPath();
-      ctx.arc(canvas.width - 120, 100, 50, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-      clouds.forEach(cloud => {
-        cloud.x -= cloud.speed;
-        if (cloud.x < -100) cloud.x = canvas.width + 100;
-
+        // Matahari
+        ctx.fillStyle = '#ffeb3b';
+        ctx.shadowBlur = 30;
+        ctx.shadowColor = '#ffff00';
         ctx.beginPath();
-        ctx.arc(cloud.x, cloud.y, 25 * cloud.scale, 0, Math.PI * 2);
-        ctx.arc(cloud.x + 20 * cloud.scale, cloud.y - 10 * cloud.scale, 20 * cloud.scale, 0, Math.PI * 2);
-        ctx.arc(cloud.x + 40 * cloud.scale, cloud.y, 25 * cloud.scale, 0, Math.PI * 2);
+        ctx.arc(canvas.width - 120, 100, 50, 0, Math.PI * 2);
         ctx.fill();
-      });
+        ctx.shadowBlur = 0;
 
-      ctx.fillStyle = '#66bb6a';
-      ctx.beginPath();
-      ctx.arc(canvas.width * 0.25, canvas.height - 40, 300, Math.PI, 0);
-      ctx.arc(canvas.width * 0.75, canvas.height - 30, 350, Math.PI, 0);
-      ctx.fill();
+        // Awan
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+        clouds.forEach(cloud => {
+          cloud.x -= cloud.speed;
+          if (cloud.x < -100) cloud.x = canvas.width + 100;
+          ctx.beginPath();
+          ctx.arc(cloud.x, cloud.y, 25 * cloud.scale, 0, Math.PI * 2);
+          ctx.arc(cloud.x + 20 * cloud.scale, cloud.y - 10 * cloud.scale, 20 * cloud.scale, 0, Math.PI * 2);
+          ctx.arc(cloud.x + 40 * cloud.scale, cloud.y, 25 * cloud.scale, 0, Math.PI * 2);
+          ctx.fill();
+        });
 
-      for (let i = 50; i < canvas.width; i += 180) {
-        ctx.fillStyle = '#795548';
-        ctx.fillRect(i, canvas.height - 130, 14, 60);
-
-        ctx.fillStyle = '#388e3c';
-        ctx.beginPath();
-        ctx.arc(i + 7, canvas.height - 140, 28, 0, Math.PI * 2);
-        ctx.fill();
+        // Rumput & Air
+        ctx.fillStyle = '#4caf50';
+        ctx.fillRect(0, canvas.height - 90, canvas.width, 20);
+        let riverGradient = ctx.createLinearGradient(0, canvas.height - 70, 0, canvas.height);
+        riverGradient.addColorStop(0, '#0288d1');
+        riverGradient.addColorStop(1, '#01579b');
+        ctx.fillStyle = riverGradient;
+        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
       }
+      // 2. BIOMA GURUN PASIR (Skor 5 - 9)
+      else if (score >= 5 && score < 10) {
+        locationText.textContent = "Gurun Pasir 🏜️";
+        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        skyGradient.addColorStop(0, '#ff7b00');
+        skyGradient.addColorStop(0.6, '#ffae00');
+        skyGradient.addColorStop(1, '#ffe5ec');
+        ctx.fillStyle = skyGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#4caf50';
-      ctx.fillRect(0, canvas.height - 90, canvas.width, 20);
+        // Matahari Terik
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowBlur = 40;
+        ctx.shadowColor = '#ffae00';
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, 120, 65, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
 
-      let riverGradient = ctx.createLinearGradient(0, canvas.height - 70, 0, canvas.height);
-      riverGradient.addColorStop(0, '#0288d1');
-      riverGradient.addColorStop(1, '#01579b');
-      ctx.fillStyle = riverGradient;
-      ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
+        // Piramida Latar
+        ctx.fillStyle = '#d4a373';
+        ctx.beginPath();
+        ctx.moveTo(canvas.width * 0.1, canvas.height - 70);
+        ctx.lineTo(canvas.width * 0.3, canvas.height - 250);
+        ctx.lineTo(canvas.width * 0.5, canvas.height - 70);
+        ctx.fill();
 
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-      let waveOffset = (frameCount * 2) % 40;
-      for (let x = -40; x < canvas.width + 40; x += 40) {
-        ctx.fillRect(x + waveOffset, canvas.height - 50, 20, 3);
-        ctx.fillRect(x - waveOffset, canvas.height - 25, 25, 3);
+        // Tanah Pasir Gurun
+        ctx.fillStyle = '#e9c46a';
+        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
+      }
+      // 3. BIOMA SALJU ES (Skor 10 - 14)
+      else if (score >= 10 && score < 15) {
+        locationText.textContent = "Pegunungan Salju ❄️";
+        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        skyGradient.addColorStop(0, '#1d3557');
+        skyGradient.addColorStop(0.7, '#457b9d');
+        skyGradient.addColorStop(1, '#f1faee');
+        ctx.fillStyle = skyGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Gunung Es
+        ctx.fillStyle = '#a8dede';
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height - 70);
+        ctx.lineTo(canvas.width * 0.2, canvas.height - 300);
+        ctx.lineTo(canvas.width * 0.45, canvas.height - 70);
+        ctx.fill();
+
+        // Efek Salju Turun
+        ctx.fillStyle = '#ffffff';
+        snowFlakes.forEach(f => {
+          f.y += f.speed;
+          if (f.y > canvas.height) f.y = 0;
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Tumpukan Salju
+        ctx.fillStyle = '#f1faee';
+        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
+      }
+      // 4. BIOMA KOTA MALAM / CYBER CITY (Skor 15+)
+      else {
+        locationText.textContent = "Kota Malam 🏙️";
+        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        skyGradient.addColorStop(0, '#03071e');
+        skyGradient.addColorStop(0.7, '#370617');
+        skyGradient.addColorStop(1, '#6a040f');
+        ctx.fillStyle = skyGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Bulan
+        ctx.fillStyle = '#fdf0d5';
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#fdf0d5';
+        ctx.beginPath();
+        ctx.arc(120, 100, 40, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Gedung-Gedung Kota
+        for (let x = 0; x < canvas.width; x += 90) {
+          ctx.fillStyle = '#10002b';
+          ctx.fillRect(x, canvas.height - 280, 75, 210);
+
+          // Jendela Lampu Gedung
+          ctx.fillStyle = '#ffb703';
+          for (let wy = canvas.height - 260; wy < canvas.height - 80; wy += 30) {
+            ctx.fillRect(x + 15, wy, 15, 15);
+            ctx.fillRect(x + 45, wy, 15, 15);
+          }
+        }
+
+        // Jalan Raya
+        ctx.fillStyle = '#212529';
+        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
       }
     }
 
     function initGame() {
       resizeCanvas();
       initClouds();
+      initSnow();
       bird = new Bird();
       pipes = [];
       fireworks = [];
       score = 0;
       frameCount = 0;
-      isWon = false;
       scoreText.textContent = score;
       isGameRunning = true;
 
@@ -368,13 +478,11 @@
 
     function gameWin() {
       isGameRunning = false;
-      isWon = true;
       playWinSound();
       cancelAnimationFrame(gameAnimationId);
 
-      // Loop Kembang Api Kemenangan
       function showVictoryScreen() {
-        drawBackground();
+        drawDynamicBackground();
 
         if (Math.random() < 0.2) spawnFireworks();
 
@@ -384,7 +492,7 @@
           if (p.alpha <= 0) fireworks.splice(index, 1);
         });
 
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.shadowBlur = 20;
@@ -397,7 +505,7 @@
         ctx.shadowBlur = 0;
         ctx.fillStyle = '#ffffff';
         ctx.font = '22px Segoe UI';
-        ctx.fillText('Selamat! Kamu berhasil menamatkan BAINI Flappy Bird!', canvas.width / 2, canvas.height / 2 + 30);
+        ctx.fillText('Selamat! Kamu berhasil menjelajahi semua tempat di BAINI Flappy Bird!', canvas.width / 2, canvas.height / 2 + 30);
         ctx.fillText('Tekan SPASI untuk main lagi dari awal', canvas.width / 2, canvas.height / 2 + 75);
 
         requestAnimationFrame(showVictoryScreen);
@@ -430,7 +538,7 @@
     function animate() {
       if (!isGameRunning) return;
 
-      drawBackground();
+      drawDynamicBackground();
 
       frameCount++;
       if (frameCount % 105 === 0) {
@@ -461,7 +569,6 @@
             localStorage.setItem('bainiFlappyHighScore', highScore);
           }
 
-          // Cek Tamat Game
           if (score >= TARGET_SCORE) {
             gameWin();
             return;
