@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BAINI - Flappy Bird Multi-Bioma</title>
+  <title>BAINI - Flappy Bird HD Multi-Bioma</title>
   <style>
     * {
       box-sizing: border-box;
@@ -16,7 +16,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #87CEEB;
+      background: #000;
       color: #fff;
     }
 
@@ -49,18 +49,18 @@
     h1 {
       font-size: 2.2rem;
       color: #ffffff;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
     }
 
     .score-board {
       font-size: 1.2rem;
       display: flex;
       gap: 20px;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       padding: 10px 25px;
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(5px);
     }
 
@@ -82,7 +82,7 @@
       transform: translateX(-50%);
       font-size: 0.95rem;
       color: #fff;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
       padding: 6px 16px;
       border-radius: 15px;
       pointer-events: none;
@@ -94,7 +94,7 @@
   <div class="hud">
     <div class="brand-title">
       <span class="brand-name">WEBSITE GAME BAINI</span>
-      <h1>BAINI FLAPPY BIRD</h1>
+      <h1>BAINI FLAPPY BIRD HD</h1>
     </div>
 
     <div class="score-board">
@@ -123,6 +123,26 @@
     let frameCount = 0;
 
     highScoreText.textContent = highScore;
+
+    // SISTEM MEMUAT GAMBAR HD TEKSTUR
+    const images = {};
+    const imageSources = {
+      bgPark: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      bgDesert: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80',
+      bgSnow: 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=1200&q=80',
+      bgCity: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80'
+    };
+
+    let loadedImagesCount = 0;
+    const totalImages = Object.keys(imageSources).length;
+
+    for (let key in imageSources) {
+      images[key] = new Image();
+      images[key].src = imageSources[key];
+      images[key].onload = () => {
+        loadedImagesCount++;
+      };
+    }
 
     // Web Audio API
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -154,72 +174,74 @@
 
     let bird;
     let pipes = [];
-    let clouds = [];
     let fireworks = [];
-    let snowFlakes = [];
-
-    function initClouds() {
-      clouds = [];
-      for (let i = 0; i < 5; i++) {
-        clouds.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * (canvas.height * 0.35) + 30,
-          speed: Math.random() * 0.8 + 0.3,
-          scale: Math.random() * 0.5 + 0.8
-        });
-      }
-    }
-
-    function initSnow() {
-      snowFlakes = [];
-      for (let i = 0; i < 60; i++) {
-        snowFlakes.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          r: Math.random() * 3 + 1,
-          speed: Math.random() * 1.5 + 0.8
-        });
-      }
-    }
 
     class Bird {
       constructor() {
         this.x = 150;
         this.y = canvas.height / 2;
-        this.radius = 16;
+        this.radius = 18;
         this.gravity = 0.45;
         this.velocity = 0;
         this.jumpPower = -8.5;
       }
 
       draw() {
+        // Karakter Burung dengan Efek Gradien 3D & Bayangan HD
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(Math.min(Math.PI / 4, Math.max(-Math.PI / 4, this.velocity * 0.08)));
+
+        // Shadow HD
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+
+        // Badan Burung Gradasi 3D
+        let birdGrad = ctx.createRadialGradient(-4, -4, 2, 0, 0, this.radius);
+        birdGrad.addColorStop(0, '#ffee55');
+        birdGrad.addColorStop(0.8, '#ff9900');
+        birdGrad.addColorStop(1, '#cc6600');
+
+        ctx.fillStyle = birdGrad;
+        ctx.beginPath();
+        ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+
+        // Sayap Bertekstur
         ctx.fillStyle = '#ffcc00';
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.ellipse(-6, 2, 9, 6, 0.2, 0, Math.PI * 2);
         ctx.fill();
+        ctx.strokeStyle = '#e67e22';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
 
-        ctx.fillStyle = '#ff9900';
-        ctx.beginPath();
-        ctx.ellipse(this.x - 6, this.y + 2, 8, 5, 0, 0, Math.PI * 2);
-        ctx.fill();
-
+        // Mata 3D
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.arc(this.x + 6, this.y - 4, 5, 0, Math.PI * 2);
+        ctx.arc(6, -5, 6, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = '#000000';
+        ctx.fillStyle = '#111111';
         ctx.beginPath();
-        ctx.arc(this.x + 7, this.y - 4, 2, 0, Math.PI * 2);
+        ctx.arc(8, -5, 2.5, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = '#ff3300';
+        // Paruh
+        let beakGrad = ctx.createLinearGradient(10, 0, 22, 0);
+        beakGrad.addColorStop(0, '#ff4d4d');
+        beakGrad.addColorStop(1, '#b30000');
+        ctx.fillStyle = beakGrad;
         ctx.beginPath();
-        ctx.moveTo(this.x + this.radius - 2, this.y - 2);
-        ctx.lineTo(this.x + this.radius + 10, this.y + 2);
-        ctx.lineTo(this.x + this.radius - 2, this.y + 6);
+        ctx.moveTo(10, -2);
+        ctx.lineTo(22, 2);
+        ctx.lineTo(10, 7);
         ctx.closePath();
         ctx.fill();
+
+        ctx.restore();
       }
 
       flap() {
@@ -231,7 +253,7 @@
         this.velocity += this.gravity;
         this.y += this.velocity;
 
-        if (this.y + this.radius >= canvas.height - 70 || this.y - this.radius <= 0) {
+        if (this.y + this.radius >= canvas.height - 40 || this.y - this.radius <= 0) {
           gameOver();
         }
       }
@@ -240,37 +262,55 @@
     class Pipe {
       constructor() {
         this.x = canvas.width;
-        this.width = 80;
+        this.width = 85;
         this.gap = 210;
         this.topHeight = Math.random() * (canvas.height - this.gap - 250) + 60;
         this.bottomY = this.topHeight + this.gap;
-        this.speed = 3.8;
+        this.speed = 4;
         this.passed = false;
       }
 
       draw() {
-        let colorMain = '#2e7d32';
-        let colorBorder = '#1b5e20';
-
-        // Sesuaikan Warna Pilar dengan Bioma
-        if (score >= 5 && score < 10) { // Gurun
-          colorMain = '#d4a373';
-          colorBorder = '#bc6c25';
-        } else if (score >= 10 && score < 15) { // Salju
-          colorMain = '#90e0ef';
-          colorBorder = '#0077b6';
-        } else if (score >= 15) { // Kota
-          colorMain = '#3a0ca3';
-          colorBorder = '#f72585';
+        // Efek Tekstur Metalik HD pada Pilar
+        let mainGrad = ctx.createLinearGradient(this.x, 0, this.x + this.width, 0);
+        
+        if (score < 5) { // Pilar Hutan/Taman
+          mainGrad.addColorStop(0, '#1b5e20');
+          mainGrad.addColorStop(0.3, '#4caf50');
+          mainGrad.addColorStop(0.7, '#81c784');
+          mainGrad.addColorStop(1, '#1b5e20');
+        } else if (score >= 5 && score < 10) { // Pilar Gurun Batu
+          mainGrad.addColorStop(0, '#7f5539');
+          mainGrad.addColorStop(0.3, '#ddb892');
+          mainGrad.addColorStop(0.7, '#e6ccb2');
+          mainGrad.addColorStop(1, '#7f5539');
+        } else if (score >= 10 && score < 15) { // Pilar Es HD
+          mainGrad.addColorStop(0, '#03045e');
+          mainGrad.addColorStop(0.3, '#90e0ef');
+          mainGrad.addColorStop(0.7, '#caf0f8');
+          mainGrad.addColorStop(1, '#03045e');
+        } else { // Pilar Neon Cyber City
+          mainGrad.addColorStop(0, '#4a0e17');
+          mainGrad.addColorStop(0.5, '#f72585');
+          mainGrad.addColorStop(1, '#4a0e17');
         }
 
-        ctx.fillStyle = colorMain;
-        ctx.fillRect(this.x, 0, this.width, this.topHeight);
-        ctx.fillRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY - 70);
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(0,0,0,0.5)';
 
-        ctx.fillStyle = colorBorder;
-        ctx.fillRect(this.x - 4, this.topHeight - 20, this.width + 8, 20);
-        ctx.fillRect(this.x - 4, this.bottomY, this.width + 8, 20);
+        // Pilar Atas & Bawah
+        ctx.fillStyle = mainGrad;
+        ctx.fillRect(this.x, 0, this.width, this.topHeight);
+        ctx.fillRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY - 40);
+
+        // Frame Pinggir / Cap Pilar HD
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = 0.3;
+        ctx.fillRect(this.x, this.topHeight - 20, this.width, 20);
+        ctx.fillRect(this.x, this.bottomY, this.width, 20);
+        ctx.globalAlpha = 1.0;
+
+        ctx.shadowBlur = 0;
       }
 
       update() {
@@ -317,153 +357,49 @@
       }
     }
 
-    // MEMUAT & MENGGAMBAR TEMA/LATAR BELAKANG DENGAN SKOR
-    function drawDynamicBackground() {
-      // 1. BIOMA TAMAN SUNGAI (Skor 0 - 4)
+    // GAMBAR LATAR BELAKANG HD BERTEKSTUR LENGKAP
+    function drawHDBackground() {
+      let bgImg;
+
       if (score < 5) {
-        locationText.textContent = "Taman Sungai 🌳";
-        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        skyGradient.addColorStop(0, '#4fc3f7');
-        skyGradient.addColorStop(0.5, '#e0f7fa');
-        skyGradient.addColorStop(1, '#81c784');
-        ctx.fillStyle = skyGradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Matahari
-        ctx.fillStyle = '#ffeb3b';
-        ctx.shadowBlur = 30;
-        ctx.shadowColor = '#ffff00';
-        ctx.beginPath();
-        ctx.arc(canvas.width - 120, 100, 50, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        // Awan
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-        clouds.forEach(cloud => {
-          cloud.x -= cloud.speed;
-          if (cloud.x < -100) cloud.x = canvas.width + 100;
-          ctx.beginPath();
-          ctx.arc(cloud.x, cloud.y, 25 * cloud.scale, 0, Math.PI * 2);
-          ctx.arc(cloud.x + 20 * cloud.scale, cloud.y - 10 * cloud.scale, 20 * cloud.scale, 0, Math.PI * 2);
-          ctx.arc(cloud.x + 40 * cloud.scale, cloud.y, 25 * cloud.scale, 0, Math.PI * 2);
-          ctx.fill();
-        });
-
-        // Rumput & Air
-        ctx.fillStyle = '#4caf50';
-        ctx.fillRect(0, canvas.height - 90, canvas.width, 20);
-        let riverGradient = ctx.createLinearGradient(0, canvas.height - 70, 0, canvas.height);
-        riverGradient.addColorStop(0, '#0288d1');
-        riverGradient.addColorStop(1, '#01579b');
-        ctx.fillStyle = riverGradient;
-        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
+        locationText.textContent = "Tepi Pantai HD 🌊";
+        bgImg = images.bgPark;
+      } else if (score >= 5 && score < 10) {
+        locationText.textContent = "Gurun Pasir HD 🏜️";
+        bgImg = images.bgDesert;
+      } else if (score >= 10 && score < 15) {
+        locationText.textContent = "Pegunungan Salju HD ❄️";
+        bgImg = images.bgSnow;
+      } else {
+        locationText.textContent = "Kota Malam HD 🏙️";
+        bgImg = images.bgCity;
       }
-      // 2. BIOMA GURUN PASIR (Skor 5 - 9)
-      else if (score >= 5 && score < 10) {
-        locationText.textContent = "Gurun Pasir 🏜️";
-        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        skyGradient.addColorStop(0, '#ff7b00');
-        skyGradient.addColorStop(0.6, '#ffae00');
-        skyGradient.addColorStop(1, '#ffe5ec');
-        ctx.fillStyle = skyGradient;
+
+      // Gambar Foto HD Memenuhi Canvas
+      if (bgImg && bgImg.complete) {
+        ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = '#111';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Matahari Terik
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowBlur = 40;
-        ctx.shadowColor = '#ffae00';
-        ctx.beginPath();
-        ctx.arc(canvas.width / 2, 120, 65, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        // Piramida Latar
-        ctx.fillStyle = '#d4a373';
-        ctx.beginPath();
-        ctx.moveTo(canvas.width * 0.1, canvas.height - 70);
-        ctx.lineTo(canvas.width * 0.3, canvas.height - 250);
-        ctx.lineTo(canvas.width * 0.5, canvas.height - 70);
-        ctx.fill();
-
-        // Tanah Pasir Gurun
-        ctx.fillStyle = '#e9c46a';
-        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
       }
-      // 3. BIOMA SALJU ES (Skor 10 - 14)
-      else if (score >= 10 && score < 15) {
-        locationText.textContent = "Pegunungan Salju ❄️";
-        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        skyGradient.addColorStop(0, '#1d3557');
-        skyGradient.addColorStop(0.7, '#457b9d');
-        skyGradient.addColorStop(1, '#f1faee');
-        ctx.fillStyle = skyGradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Gunung Es
-        ctx.fillStyle = '#a8dede';
-        ctx.beginPath();
-        ctx.moveTo(0, canvas.height - 70);
-        ctx.lineTo(canvas.width * 0.2, canvas.height - 300);
-        ctx.lineTo(canvas.width * 0.45, canvas.height - 70);
-        ctx.fill();
+      // Lapisan Tanah / Landasan HD
+      let groundGrad = ctx.createLinearGradient(0, canvas.height - 40, 0, canvas.height);
+      groundGrad.addColorStop(0, 'rgba(30, 30, 30, 0.8)');
+      groundGrad.addColorStop(1, 'rgba(0, 0, 0, 0.95)');
+      ctx.fillStyle = groundGrad;
+      ctx.fillRect(0, canvas.height - 40, canvas.width, 40);
 
-        // Efek Salju Turun
-        ctx.fillStyle = '#ffffff';
-        snowFlakes.forEach(f => {
-          f.y += f.speed;
-          if (f.y > canvas.height) f.y = 0;
-          ctx.beginPath();
-          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-          ctx.fill();
-        });
-
-        // Tumpukan Salju
-        ctx.fillStyle = '#f1faee';
-        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
-      }
-      // 4. BIOMA KOTA MALAM / CYBER CITY (Skor 15+)
-      else {
-        locationText.textContent = "Kota Malam 🏙️";
-        let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        skyGradient.addColorStop(0, '#03071e');
-        skyGradient.addColorStop(0.7, '#370617');
-        skyGradient.addColorStop(1, '#6a040f');
-        ctx.fillStyle = skyGradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Bulan
-        ctx.fillStyle = '#fdf0d5';
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = '#fdf0d5';
-        ctx.beginPath();
-        ctx.arc(120, 100, 40, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        // Gedung-Gedung Kota
-        for (let x = 0; x < canvas.width; x += 90) {
-          ctx.fillStyle = '#10002b';
-          ctx.fillRect(x, canvas.height - 280, 75, 210);
-
-          // Jendela Lampu Gedung
-          ctx.fillStyle = '#ffb703';
-          for (let wy = canvas.height - 260; wy < canvas.height - 80; wy += 30) {
-            ctx.fillRect(x + 15, wy, 15, 15);
-            ctx.fillRect(x + 45, wy, 15, 15);
-          }
-        }
-
-        // Jalan Raya
-        ctx.fillStyle = '#212529';
-        ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
-      }
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height - 40);
+      ctx.lineTo(canvas.width, canvas.height - 40);
+      ctx.stroke();
     }
 
     function initGame() {
       resizeCanvas();
-      initClouds();
-      initSnow();
       bird = new Bird();
       pipes = [];
       fireworks = [];
@@ -482,7 +418,7 @@
       cancelAnimationFrame(gameAnimationId);
 
       function showVictoryScreen() {
-        drawDynamicBackground();
+        drawHDBackground();
 
         if (Math.random() < 0.2) spawnFireworks();
 
@@ -492,7 +428,7 @@
           if (p.alpha <= 0) fireworks.splice(index, 1);
         });
 
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.shadowBlur = 20;
@@ -505,7 +441,7 @@
         ctx.shadowBlur = 0;
         ctx.fillStyle = '#ffffff';
         ctx.font = '22px Segoe UI';
-        ctx.fillText('Selamat! Kamu berhasil menjelajahi semua tempat di BAINI Flappy Bird!', canvas.width / 2, canvas.height / 2 + 30);
+        ctx.fillText('Selamat! Kamu menamatkan BAINI Flappy Bird versi HD!', canvas.width / 2, canvas.height / 2 + 30);
         ctx.fillText('Tekan SPASI untuk main lagi dari awal', canvas.width / 2, canvas.height / 2 + 75);
 
         requestAnimationFrame(showVictoryScreen);
@@ -519,7 +455,7 @@
       isGameRunning = false;
       cancelAnimationFrame(gameAnimationId);
 
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.shadowBlur = 10;
@@ -538,7 +474,7 @@
     function animate() {
       if (!isGameRunning) return;
 
-      drawDynamicBackground();
+      drawHDBackground();
 
       frameCount++;
       if (frameCount % 105 === 0) {
