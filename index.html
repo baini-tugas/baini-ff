@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARBAINI - Auto Space Shooter</title>
+  <title>ARBAINI - Adventure Quest</title>
   <style>
-    /* --- CSS: LAYAR PENUH & TEMA CYBER SPACE --- */
+    /* --- CSS: LAYAR PENUH & DESAIN NEON CYBER ADVENTURE --- */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,7 +14,7 @@
     }
 
     body {
-      background: #05050a;
+      background: #060913;
       color: #fff;
       width: 100vw;
       height: 100vh;
@@ -43,10 +43,10 @@
     .brand-name {
       font-size: 0.9rem;
       letter-spacing: 3px;
-      color: #ff0055;
+      color: #ff007f;
       text-transform: uppercase;
       font-weight: bold;
-      text-shadow: 0 0 8px #ff0055;
+      text-shadow: 0 0 8px #ff007f;
     }
 
     h1 {
@@ -68,7 +68,7 @@
     }
 
     .score-board span {
-      color: #ff0055;
+      color: #ffd700;
       font-weight: bold;
     }
 
@@ -84,7 +84,7 @@
     }
 
     #gameCanvas {
-      background: #0a0a16;
+      background: #0b1120;
       border: 2px solid #00f0ff;
       border-radius: 12px;
       box-shadow: 0 0 25px rgba(0, 240, 255, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.9);
@@ -103,17 +103,17 @@
       font-size: 1rem;
       font-weight: bold;
       color: #fff;
-      background: linear-gradient(45deg, #ff0055, #7928ca);
+      background: linear-gradient(45deg, #00f0ff, #7928ca);
       border: none;
       border-radius: 25px;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
       transition: all 0.3s ease;
     }
 
     .btn:hover {
       transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 0 25px rgba(255, 0, 85, 0.8);
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.8);
     }
 
     .controls-hint {
@@ -123,7 +123,7 @@
 
     @keyframes pulseGlow {
       0% { text-shadow: 0 0 10px #00f0ff; }
-      100% { text-shadow: 0 0 20px #ff0055; }
+      100% { text-shadow: 0 0 20px #ff007f; }
     }
   </style>
 </head>
@@ -131,13 +131,13 @@
 
   <header>
     <div class="brand-title">
-      <span class="brand-name">Game Arcade</span>
-      <h1>ARBAINI SPACE DEFENDER</h1>
+      <span class="brand-name">Game Petualangan</span>
+      <h1>ARBAINI ADVENTURE QUEST</h1>
     </div>
 
     <div class="score-board">
-      <div>Skor: <span id="score">0</span></div>
-      <div>Rekor Arbaini: <span id="highScore">0</span></div>
+      <div>Permata: <span id="gemsText">0 / 0</span></div>
+      <div>Level: <span id="levelText">1</span></div>
     </div>
   </header>
 
@@ -146,44 +146,34 @@
   </div>
 
   <footer>
-    <button class="btn" id="startBtn">Mulai Permainan</button>
-    <div class="controls-hint">Gunakan <b>Panah Kiri/Kanan</b> untuk bergerak. Tahan <b>Spasi</b> untuk menembak cepat!</div>
+    <button class="btn" id="startBtn">Mulai Petualangan</button>
+    <div class="controls-hint">Gunakan <b>Panah (Arrow Keys) / WASD</b> untuk mengendalikan Petualang!</div>
   </footer>
 
   <script>
-    /* --- JAVASCRIPT: UTILS & LOGIKA GAME --- */
+    /* --- JAVASCRIPT: LOGIKA PETUALANGAN --- */
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
-    const scoreEl = document.getElementById('score');
-    const highScoreEl = document.getElementById('highScore');
+    const gemsText = document.getElementById('gemsText');
+    const levelText = document.getElementById('levelText');
     const startBtn = document.getElementById('startBtn');
 
-    let score = 0;
-    let highScore = localStorage.getItem('arbainiSpaceHighScore') || 0;
+    let currentLevel = 1;
+    let collectedGems = 0;
+    let totalGems = 0;
     let gameAnimationId = null;
     let isGameRunning = false;
+    let portalActive = false;
 
-    // Timer Tembakan Otomatis
-    let shootCooldown = 0;
-    const shootSpeed = 8; // Makin kecil nilainya, makin cepat nembaknya!
-
-    highScoreEl.textContent = highScore;
-
-    function resizeCanvas() {
-      const container = document.querySelector('.game-container');
-      canvas.width = container.clientWidth;
-      canvas.height = container.clientHeight;
-    }
-
+    // Web Audio API
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playBeep(freq, type = 'sine', duration = 0.08) {
+    function playBeep(freq, type = 'sine', duration = 0.1) {
       if (audioCtx.state === 'suspended') audioCtx.resume();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = type;
       osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
@@ -191,19 +181,21 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
-    let player;
-    let bullets = [];
-    let enemies = [];
-    let particles = [];
-    let keys = {};
+    function resizeCanvas() {
+      const container = document.querySelector('.game-container');
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight;
+    }
 
-    class Player {
-      constructor() {
-        this.width = 40;
-        this.height = 40;
-        this.x = canvas.width / 2 - this.width / 2;
-        this.y = canvas.height - this.height - 20;
-        this.speed = 9;
+    let player, gems, monsters, portal, keys = {};
+
+    // Karakter Petualang
+    class Hero {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = 16;
+        this.speed = 5;
       }
 
       draw() {
@@ -211,6 +203,90 @@
         ctx.shadowColor = '#00f0ff';
         ctx.fillStyle = '#00f0ff';
         ctx.beginPath();
-        ctx.moveTo(this.x + this.width / 2, this.y);
-        ctx.lineTo(this.x, this.y + this.height);
-        ctx.lineTo(this
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Mahkota/Indikator Hero
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      update() {
+        if ((keys['ArrowLeft'] || keys['a'] || keys['A']) && this.x - this.radius > 0) this.x -= this.speed;
+        if ((keys['ArrowRight'] || keys['d'] || keys['D']) && this.x + this.radius < canvas.width) this.x += this.speed;
+        if ((keys['ArrowUp'] || keys['w'] || keys['W']) && this.y - this.radius > 0) this.y -= this.speed;
+        if ((keys['ArrowDown'] || keys['s'] || keys['S']) && this.y + this.radius < canvas.height) this.y += this.speed;
+      }
+    }
+
+    // Item Permata Harta Karun
+    class Gem {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = 10;
+        this.angle = 0;
+      }
+
+      draw() {
+        this.angle += 0.05;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#ffd700';
+        ctx.fillStyle = '#ffd700';
+        ctx.beginPath();
+        ctx.rect(-7, -7, 14, 14);
+        ctx.fill();
+
+        ctx.restore();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    // Monster Penjaga
+    class Monster {
+      constructor(x, y, dx, dy) {
+        this.x = x;
+        this.y = y;
+        this.radius = 18;
+        this.dx = dx;
+        this.dy = dy;
+      }
+
+      draw() {
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#ff0055';
+        ctx.fillStyle = '#ff0055';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      update() {
+        this.x += this.dx;
+        this.y += this.dy;
+
+        // Pantulan dari dinding
+        if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) this.dx *= -1;
+        if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) this.dy *= -1;
+      }
+    }
+
+    // Portal Sihir Ke Level Berikutnya
+    class Portal {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = 25;
+        this.angle = 0;
+      }
+
+      draw() {
+        this
