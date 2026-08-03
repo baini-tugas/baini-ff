@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Fire Fan Zone & Top Up</title>
+  <style>
+    /* --- CSS: RESET & VARIABEL --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+    }
+
+    :root {
+      --primary: #ff0055;
+      --secondary: #ff9900;
+      --bg-dark: #0d0f17;
+      --card-bg: rgba(22, 27, 46, 0.8);
+      --text: #ffffff;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* Animasi Latar Belakang Glowing Grid */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 0, 85, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 153, 0, 0.15) 0%, transparent 40%);
+      z-index: -1;
+      animation: pulseBg 8s infinite alternate;
+    }
+
+    /* --- HEADER & HERO SECTION --- */
+    header {
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(13, 15, 23, 0.9);
+      border-bottom: 2px solid var(--primary);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glowText 2s infinite alternate;
+    }
+
+    .hero {
+      text-align: center;
+      margin: 40px 20px 20px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px var(--primary);
+    }
+
+    .hero p {
+      color: #a0a5c0;
+      font-size: 1.2rem;
+    }
+
+    /* --- CONTAINER UTAMA --- */
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    /* --- KARTU DIAMOND (ANIMATED CARDS) --- */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: 0.5s;
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px rgba(255, 0, 85, 0.3);
+    }
+
+    .card-icon {
+      font-size: 3.5rem;
+      margin-bottom: 15px;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .card .price {
+      font-size: 1.3rem;
+      color: var(--secondary);
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      text-transform: uppercase;
+      cursor: pointer;
