@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BAINI - Flappy Bird Fullscreen</title>
+  <title>BAINI - Flappy Bird River Park (Tamat)</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,16 +12,14 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    /* Memaksa Layar Penuh Tanpa Scrollbar */
     html, body {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #050814;
+      background: #87CEEB;
       color: #fff;
     }
 
-    /* Antarmuka Melayang (HUD) dengan Branding BAINI */
     .hud {
       position: absolute;
       top: 15px;
@@ -45,24 +43,24 @@
       color: #ff007f;
       text-transform: uppercase;
       font-weight: bold;
-      text-shadow: 0 0 8px #ff007f;
+      text-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
     }
 
     h1 {
       font-size: 2.2rem;
-      color: #00f0ff;
-      text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+      color: #ffffff;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
     }
 
     .score-board {
       font-size: 1.2rem;
       display: flex;
       gap: 20px;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.4);
       padding: 10px 25px;
       border-radius: 20px;
-      border: 1px solid rgba(0, 240, 255, 0.4);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       backdrop-filter: blur(5px);
     }
 
@@ -71,12 +69,10 @@
       font-weight: bold;
     }
 
-    /* Canvas Game Memenuhi Seluruh Layar Desktop */
     #gameCanvas {
       width: 100vw;
       height: 100vh;
       display: block;
-      background: #0a0f24;
     }
 
     .controls-hint {
@@ -85,8 +81,8 @@
       left: 50%;
       transform: translateX(-50%);
       font-size: 0.95rem;
-      color: #aaa;
-      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5);
       padding: 6px 16px;
       border-radius: 15px;
       pointer-events: none;
@@ -102,6 +98,7 @@
     </div>
 
     <div class="score-board">
+      <div>Target Tamat: <span id="targetText">20</span></div>
       <div>Skor: <span id="scoreText">0</span></div>
       <div>Rekor Baini: <span id="highScoreText">0</span></div>
     </div>
@@ -109,7 +106,7 @@
 
   <canvas id="gameCanvas"></canvas>
 
-  <div class="controls-hint">Tekan <b>SPASI</b> atau <b>Panah Atas</b> di keyboard untuk terbang!</div>
+  <div class="controls-hint">Tekan <b>SPASI</b> atau <b>Panah Atas</b> untuk terbang!</div>
 
   <script>
     const canvas = document.getElementById('gameCanvas');
@@ -117,15 +114,17 @@
     const scoreText = document.getElementById('scoreText');
     const highScoreText = document.getElementById('highScoreText');
 
+    const TARGET_SCORE = 20; // Skor untuk menamatkan game
     let score = 0;
     let highScore = localStorage.getItem('bainiFlappyHighScore') || 0;
     let gameAnimationId = null;
     let isGameRunning = true;
     let frameCount = 0;
+    let isWon = false;
 
     highScoreText.textContent = highScore;
 
-    // Web Audio API untuk Efek Suara
+    // Web Audio API
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playBeep(freq, type = 'sine', duration = 0.08) {
       if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -141,6 +140,13 @@
       osc.stop(audioCtx.currentTime + duration);
     }
 
+    function playWinSound() {
+      playBeep(523.25, 'triangle', 0.15);
+      setTimeout(() => playBeep(659.25, 'triangle', 0.15), 150);
+      setTimeout(() => playBeep(783.99, 'triangle', 0.15), 300);
+      setTimeout(() => playBeep(1046.50, 'triangle', 0.3), 450);
+    }
+
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -148,6 +154,20 @@
 
     let bird;
     let pipes = [];
+    let clouds = [];
+    let fireworks = [];
+
+    function initClouds() {
+      clouds = [];
+      for (let i = 0; i < 5; i++) {
+        clouds.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * (canvas.height * 0.35) + 30,
+          speed: Math.random() * 0.8 + 0.3,
+          scale: Math.random() * 0.5 + 0.8
+        });
+      }
+    }
 
     class Bird {
       constructor() {
@@ -160,31 +180,33 @@
       }
 
       draw() {
-        // Burung Neon Glowing
-        ctx.shadowBlur = 18;
-        ctx.shadowColor = '#00f0ff';
-        ctx.fillStyle = '#00f0ff';
+        ctx.fillStyle = '#ffcc00';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Mata Burung
+        ctx.fillStyle = '#ff9900';
+        ctx.beginPath();
+        ctx.ellipse(this.x - 6, this.y + 2, 8, 5, 0, 0, Math.PI * 2);
+        ctx.fill();
+
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.arc(this.x + 6, this.y - 4, 4, 0, Math.PI * 2);
+        ctx.arc(this.x + 6, this.y - 4, 5, 0, Math.PI * 2);
         ctx.fill();
 
-        // Paruh Burung
-        ctx.shadowColor = '#ff007f';
-        ctx.fillStyle = '#ff007f';
+        ctx.fillStyle = '#000000';
         ctx.beginPath();
-        ctx.moveTo(this.x + this.radius, this.y - 2);
+        ctx.arc(this.x + 7, this.y - 4, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#ff3300';
+        ctx.beginPath();
+        ctx.moveTo(this.x + this.radius - 2, this.y - 2);
         ctx.lineTo(this.x + this.radius + 10, this.y + 2);
-        ctx.lineTo(this.x + this.radius, this.y + 6);
+        ctx.lineTo(this.x + this.radius - 2, this.y + 6);
         ctx.closePath();
         ctx.fill();
-
-        ctx.shadowBlur = 0;
       }
 
       flap() {
@@ -196,8 +218,7 @@
         this.velocity += this.gravity;
         this.y += this.velocity;
 
-        // Cek Jatuh ke Dasar / Keluar Langit
-        if (this.y + this.radius >= canvas.height || this.y - this.radius <= 0) {
+        if (this.y + this.radius >= canvas.height - 70 || this.y - this.radius <= 0) {
           gameOver();
         }
       }
@@ -207,25 +228,21 @@
       constructor() {
         this.x = canvas.width;
         this.width = 80;
-        this.gap = 210; // Ukuran celah pilar
-        this.topHeight = Math.random() * (canvas.height - this.gap - 160) + 80;
+        this.gap = 210;
+        this.topHeight = Math.random() * (canvas.height - this.gap - 250) + 60;
         this.bottomY = this.topHeight + this.gap;
-        this.speed = 4;
+        this.speed = 3.8;
         this.passed = false;
       }
 
       draw() {
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = '#ff007f';
-        ctx.fillStyle = '#ff007f';
-
-        // Pilar Atas
+        ctx.fillStyle = '#2e7d32';
         ctx.fillRect(this.x, 0, this.width, this.topHeight);
-        
-        // Pilar Bawah
-        ctx.fillRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY);
+        ctx.fillRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY - 70);
 
-        ctx.shadowBlur = 0;
+        ctx.fillStyle = '#1b5e20';
+        ctx.fillRect(this.x - 4, this.topHeight - 20, this.width + 8, 20);
+        ctx.fillRect(this.x - 4, this.bottomY, this.width + 8, 20);
       }
 
       update() {
@@ -233,12 +250,115 @@
       }
     }
 
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.radius = Math.random() * 3 + 2;
+        this.vx = (Math.random() - 0.5) * 8;
+        this.vy = (Math.random() - 0.5) * 8;
+        this.alpha = 1;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.015;
+      }
+    }
+
+    function spawnFireworks() {
+      const colors = ['#ff0055', '#00f0ff', '#ffd700', '#ff9900', '#a855f7'];
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * (canvas.height / 2);
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      for (let i = 0; i < 25; i++) {
+        fireworks.push(new Particle(x, y, color));
+      }
+    }
+
+    function drawBackground() {
+      let skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      skyGradient.addColorStop(0, '#4fc3f7');
+      skyGradient.addColorStop(0.5, '#e0f7fa');
+      skyGradient.addColorStop(1, '#81c784');
+      ctx.fillStyle = skyGradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#ffeb3b';
+      ctx.shadowBlur = 30;
+      ctx.shadowColor = '#ffff00';
+      ctx.beginPath();
+      ctx.arc(canvas.width - 120, 100, 50, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+      clouds.forEach(cloud => {
+        cloud.x -= cloud.speed;
+        if (cloud.x < -100) cloud.x = canvas.width + 100;
+
+        ctx.beginPath();
+        ctx.arc(cloud.x, cloud.y, 25 * cloud.scale, 0, Math.PI * 2);
+        ctx.arc(cloud.x + 20 * cloud.scale, cloud.y - 10 * cloud.scale, 20 * cloud.scale, 0, Math.PI * 2);
+        ctx.arc(cloud.x + 40 * cloud.scale, cloud.y, 25 * cloud.scale, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      ctx.fillStyle = '#66bb6a';
+      ctx.beginPath();
+      ctx.arc(canvas.width * 0.25, canvas.height - 40, 300, Math.PI, 0);
+      ctx.arc(canvas.width * 0.75, canvas.height - 30, 350, Math.PI, 0);
+      ctx.fill();
+
+      for (let i = 50; i < canvas.width; i += 180) {
+        ctx.fillStyle = '#795548';
+        ctx.fillRect(i, canvas.height - 130, 14, 60);
+
+        ctx.fillStyle = '#388e3c';
+        ctx.beginPath();
+        ctx.arc(i + 7, canvas.height - 140, 28, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.fillStyle = '#4caf50';
+      ctx.fillRect(0, canvas.height - 90, canvas.width, 20);
+
+      let riverGradient = ctx.createLinearGradient(0, canvas.height - 70, 0, canvas.height);
+      riverGradient.addColorStop(0, '#0288d1');
+      riverGradient.addColorStop(1, '#01579b');
+      ctx.fillStyle = riverGradient;
+      ctx.fillRect(0, canvas.height - 70, canvas.width, 70);
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+      let waveOffset = (frameCount * 2) % 40;
+      for (let x = -40; x < canvas.width + 40; x += 40) {
+        ctx.fillRect(x + waveOffset, canvas.height - 50, 20, 3);
+        ctx.fillRect(x - waveOffset, canvas.height - 25, 25, 3);
+      }
+    }
+
     function initGame() {
       resizeCanvas();
+      initClouds();
       bird = new Bird();
       pipes = [];
+      fireworks = [];
       score = 0;
       frameCount = 0;
+      isWon = false;
       scoreText.textContent = score;
       isGameRunning = true;
 
@@ -246,17 +366,57 @@
       animate();
     }
 
+    function gameWin() {
+      isGameRunning = false;
+      isWon = true;
+      playWinSound();
+      cancelAnimationFrame(gameAnimationId);
+
+      // Loop Kembang Api Kemenangan
+      function showVictoryScreen() {
+        drawBackground();
+
+        if (Math.random() < 0.2) spawnFireworks();
+
+        fireworks.forEach((p, index) => {
+          p.update();
+          p.draw();
+          if (p.alpha <= 0) fireworks.splice(index, 1);
+        });
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#ffd700';
+        ctx.fillStyle = '#ffd700';
+        ctx.font = 'bold 50px Segoe UI';
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME TAMAT! YOU WIN!', canvas.width / 2, canvas.height / 2 - 20);
+
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '22px Segoe UI';
+        ctx.fillText('Selamat! Kamu berhasil menamatkan BAINI Flappy Bird!', canvas.width / 2, canvas.height / 2 + 30);
+        ctx.fillText('Tekan SPASI untuk main lagi dari awal', canvas.width / 2, canvas.height / 2 + 75);
+
+        requestAnimationFrame(showVictoryScreen);
+      }
+
+      showVictoryScreen();
+    }
+
     function gameOver() {
       playBeep(130, 'sawtooth', 0.4);
       isGameRunning = false;
       cancelAnimationFrame(gameAnimationId);
 
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.shadowBlur = 15;
-      ctx.shadowColor = '#ff007f';
-      ctx.fillStyle = '#ff007f';
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = '#ff0055';
+      ctx.fillStyle = '#ff0055';
       ctx.font = 'bold 42px Segoe UI';
       ctx.textAlign = 'center';
       ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 15);
@@ -270,22 +430,17 @@
     function animate() {
       if (!isGameRunning) return;
 
-      // Bersihkan Canvas
-      ctx.fillStyle = '#0a0f24';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      drawBackground();
 
-      // Munculkan Pilar Baru Secara Berkala
       frameCount++;
       if (frameCount % 105 === 0) {
         pipes.push(new Pipe());
       }
 
-      // Update & Gambar Pilar
       pipes.forEach((pipe, index) => {
         pipe.update();
         pipe.draw();
 
-        // Cek Tabrakan Burung dengan Pilar
         if (
           bird.x + bird.radius > pipe.x &&
           bird.x - bird.radius < pipe.x + pipe.width &&
@@ -294,7 +449,6 @@
           gameOver();
         }
 
-        // Cek Melewati Pilar & Tambah Skor
         if (!pipe.passed && pipe.x + pipe.width < bird.x) {
           pipe.passed = true;
           score++;
@@ -306,9 +460,14 @@
             highScoreText.textContent = highScore;
             localStorage.setItem('bainiFlappyHighScore', highScore);
           }
+
+          // Cek Tamat Game
+          if (score >= TARGET_SCORE) {
+            gameWin();
+            return;
+          }
         }
 
-        // Hapus Pilar yang Sudah Keluar Layar
         if (pipe.x + pipe.width < 0) {
           pipes.splice(index, 1);
         }
@@ -320,7 +479,6 @@
       gameAnimationId = requestAnimationFrame(animate);
     }
 
-    // Input Keyboard Otomatis
     window.addEventListener('keydown', e => {
       if (e.code === 'Space' || e.key === 'ArrowUp') {
         e.preventDefault();
@@ -334,13 +492,8 @@
 
     window.addEventListener('resize', () => {
       resizeCanvas();
-      if (!isGameRunning) {
-        ctx.fillStyle = '#0a0f24';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
     });
 
-    // Jalankan Game Otomatis Saat Dimuat
     window.onload = initGame;
   </script>
 </body>
