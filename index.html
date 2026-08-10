@@ -101,7 +101,8 @@
     const highScoreText = document.getElementById('highScoreText');
     const locationText = document.getElementById('locationText');
 
-    const TARGET_SCORE = 16; 
+    // TARGET SKOR DIUBAH MENJADI 50
+    const TARGET_SCORE = 50; 
     let score = 0;
     let highScore = localStorage.getItem('bainiFlappyHighScore') || 0;
     let gameAnimationId = null;
@@ -170,11 +171,9 @@
         ctx.translate(this.x, this.y);
         ctx.rotate(Math.min(Math.PI / 4, Math.max(-Math.PI / 4, this.velocity * 0.08)));
 
-        // Outer Glow Vektor HD
         ctx.shadowBlur = 18;
         ctx.shadowColor = '#ffea00';
 
-        // Badan Vektor 2D Gradasi Kartun
         let bGrad = ctx.createRadialGradient(-3, -3, 2, 0, 0, this.radius);
         bGrad.addColorStop(0, '#fff566');
         bGrad.addColorStop(0.7, '#ffcc00');
@@ -185,20 +184,17 @@
         ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Outline Vektor Crisp
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2.5;
         ctx.stroke();
 
         ctx.shadowBlur = 0;
 
-        // Sayap Bertekstur
         ctx.fillStyle = '#ff8800';
         ctx.beginPath();
         ctx.ellipse(-6, 2, 9, 5, 0, 0, Math.PI * 2);
         ctx.fill();
 
-        // Mata HD
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
         ctx.arc(6, -5, 5, 0, Math.PI * 2);
@@ -209,7 +205,6 @@
         ctx.arc(8, -5, 2, 0, Math.PI * 2);
         ctx.fill();
 
-        // Paruh Kartun
         ctx.shadowBlur = 8;
         ctx.shadowColor = '#ff3d00';
         ctx.fillStyle = '#ff3d00';
@@ -254,12 +249,12 @@
 
         let col1, col2, colBorder, glow;
 
-        // Variasi Tekstur Vektor Pipa Sesuai Tempat
-        if (score < 4) { // Taman
+        // Penyesuaian rentang skor bioma untuk pipa
+        if (score < 12) { // Taman
           col1 = '#2e7d32'; col2 = '#81c784'; colBorder = '#1b5e20'; glow = '#4caf50';
-        } else if (score >= 4 && score < 8) { // Gurun
+        } else if (score >= 12 && score < 25) { // Gurun
           col1 = '#a26a42'; col2 = '#e3c099'; colBorder = '#6f3d19'; glow = '#ffb703';
-        } else if (score >= 8 && score < 12) { // Salju
+        } else if (score >= 25 && score < 38) { // Salju
           col1 = '#0077b6'; col2 = '#ade8f4'; colBorder = '#023e8a'; glow = '#00f0ff';
         } else { // Cyber City
           col1 = '#590048'; col2 = '#ff4d6d'; colBorder = '#f72585'; glow = '#ff007f';
@@ -268,7 +263,6 @@
         ctx.shadowBlur = 15;
         ctx.shadowColor = glow;
 
-        // Pipa Utama Gradasi Vektor 3D Style
         let pGrad = ctx.createLinearGradient(this.x, 0, this.x + this.width, 0);
         pGrad.addColorStop(0, col1);
         pGrad.addColorStop(0.3, col2);
@@ -279,7 +273,6 @@
         ctx.fillRect(this.x, 0, this.width, this.topHeight);
         ctx.fillRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY - 60);
 
-        // Cap/Ring Kepala Pipa
         ctx.fillStyle = col2;
         ctx.strokeStyle = colBorder;
         ctx.lineWidth = 3;
@@ -337,10 +330,9 @@
       }
     }
 
-    // MEMUAT GAMBAR VEKTOR HD DENGAN DUA LAYER UNTUK EFEK PARALLAX / KARTUN MURNI
     function drawHDVectorBackground() {
-      // 1. BIOMA TAMAN SUNGAI (Skor 0 - 3)
-      if (score < 4) {
+      // 1. BIOMA TAMAN SUNGAI (Skor 0 - 11)
+      if (score < 12) {
         locationText.textContent = "TAMAN RIVERSIDE 🌳";
         let sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
         sky.addColorStop(0, '#3a86ff');
@@ -349,7 +341,6 @@
         ctx.fillStyle = sky;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Matahari Vektor HD
         ctx.fillStyle = '#ffbe0b';
         ctx.shadowBlur = 30;
         ctx.shadowColor = '#ffbe0b';
@@ -358,7 +349,6 @@
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Pegunungan Vektor Layer Latar
         ctx.fillStyle = '#2a9d8f';
         ctx.beginPath();
         ctx.moveTo(0, canvas.height - 60);
@@ -368,19 +358,17 @@
         ctx.lineTo(canvas.width, canvas.height - 60);
         ctx.fill();
 
-        // Bukit Depan
         ctx.fillStyle = '#264653';
         ctx.beginPath();
         ctx.arc(canvas.width * 0.3, canvas.height, 350, Math.PI, 0);
         ctx.arc(canvas.width * 0.8, canvas.height, 400, Math.PI, 0);
         ctx.fill();
 
-        // Air Sungai Vektor
         ctx.fillStyle = '#0077b6';
         ctx.fillRect(0, canvas.height - 60, canvas.width, 60);
       }
-      // 2. BIOMA GURUN VEKTOR (Skor 4 - 7)
-      else if (score >= 4 && score < 8) {
+      // 2. BIOMA GURUN VEKTOR (Skor 12 - 24)
+      else if (score >= 12 && score < 25) {
         locationText.textContent = "GURUN PASIR HD 🏜️";
         let sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
         sky.addColorStop(0, '#2b1e3a');
@@ -389,7 +377,6 @@
         ctx.fillStyle = sky;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Piramida Vektor Varian Tekstur
         ctx.fillStyle = '#6b2d0c';
         ctx.beginPath();
         ctx.moveTo(canvas.width * 0.15, canvas.height - 60);
@@ -404,7 +391,6 @@
         ctx.lineTo(canvas.width * 0.4, canvas.height - 60);
         ctx.fill();
 
-        // Bukitan Pasir Vektor Crisp
         ctx.fillStyle = '#ffb703';
         ctx.beginPath();
         ctx.arc(canvas.width * 0.2, canvas.height + 100, 280, Math.PI, 0);
@@ -414,8 +400,8 @@
         ctx.fillStyle = '#fb8500';
         ctx.fillRect(0, canvas.height - 60, canvas.width, 60);
       }
-      // 3. BIOMA SALJU VEKTOR (Skor 8 - 11)
-      else if (score >= 8 && score < 12) {
+      // 3. BIOMA SALJU VEKTOR (Skor 25 - 37)
+      else if (score >= 25 && score < 38) {
         locationText.textContent = "PEGN. SALJU HD ❄️";
         let sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
         sky.addColorStop(0, '#0d1b2a');
@@ -424,7 +410,6 @@
         ctx.fillStyle = sky;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Gunung Es Vektor Sharp
         ctx.fillStyle = '#778da9';
         ctx.beginPath();
         ctx.moveTo(0, canvas.height - 60);
@@ -432,7 +417,6 @@
         ctx.lineTo(canvas.width * 0.5, canvas.height - 60);
         ctx.fill();
 
-        // Puncak Es
         ctx.fillStyle = '#e0e1dd';
         ctx.beginPath();
         ctx.moveTo(canvas.width * 0.25, canvas.height - 320);
@@ -441,7 +425,6 @@
         ctx.closePath();
         ctx.fill();
 
-        // Efek Partikel Salju
         ctx.fillStyle = '#ffffff';
         snowFlakes.forEach(f => {
           f.y += f.speed;
@@ -451,11 +434,10 @@
           ctx.fill();
         });
 
-        // Tanah Salju
         ctx.fillStyle = '#e0e1dd';
         ctx.fillRect(0, canvas.height - 60, canvas.width, 60);
       }
-      // 4. BIOMA KOTA CYBER VEKTOR (Skor 12 - 15)
+      // 4. BIOMA KOTA CYBER VEKTOR (Skor 38 - 49)
       else {
         locationText.textContent = "CYBER CITY HD 🏙️";
         let sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -465,7 +447,6 @@
         ctx.fillStyle = sky;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Gedung Vektor Kartun Minimalis HD
         for (let x = -20; x < canvas.width + 100; x += 90) {
           let bH = 250 + Math.sin(x) * 80;
           ctx.fillStyle = '#0f051d';
@@ -486,7 +467,6 @@
         ctx.fillRect(0, canvas.height - 60, canvas.width, 60);
       }
 
-      // Garis Neon Pembatas Layar Bawah
       ctx.shadowBlur = 12;
       ctx.shadowColor = '#00f0ff';
       ctx.strokeStyle = '#00f0ff';
