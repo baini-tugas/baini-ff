@@ -30,7 +30,7 @@
     </div>
   </nav>
 
-  <!-- Hero Section dengan Background Foto SMKN 2 Tembilahan -->
+  <!-- Hero Section -->
   <section id="hero" class="relative pt-32 pb-20 px-4 max-w-7xl mx-auto text-center flex flex-col items-center justify-center min-h-screen">
     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm mb-6 animate-pulse">
       <i data-lucide="school" class="w-4 h-4"></i> SMKN 2 Tembilahan - Indragiri Hilir
@@ -39,20 +39,44 @@
       Jurusan <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">Teknik Komputer & Jaringan</span>
     </h1>
     <p class="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
-      Pusat pembelajaran teknologi informasi dan jaringan komputer di SMKN 2 Tembilahan. Menyiapkan generasi terampil, kreatif, dan siap kerja.
+      Pusat pembelajaran teknologi informasi, jaringan komputer, dan keamanan siber di SMKN 2 Tembilahan. Menyiapkan generasi terampil, kreatif, dan siap kerja.
     </p>
+
+    <!-- Rangkuman Statistik Cepat -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl mb-8 text-center">
+      <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+        <p class="text-xs text-slate-400 uppercase">Total Siswa TKJ</p>
+        <p class="text-2xl font-bold text-cyan-400">183 Siswa</p>
+      </div>
+      <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+        <p class="text-xs text-slate-400 uppercase">Total Rombel</p>
+        <p class="text-2xl font-bold text-blue-400">6 Kelas</p>
+      </div>
+      <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+        <p class="text-xs text-slate-400 uppercase">Laboratorium</p>
+        <p class="text-2xl font-bold text-indigo-400">3 Lab Utama</p>
+      </div>
+      <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
+        <p class="text-xs text-slate-400 uppercase">Akreditasi</p>
+        <p class="text-2xl font-bold text-emerald-400">Unggul (A)</p>
+      </div>
+    </div>
+
     <div class="flex flex-wrap gap-4 justify-center mb-12">
       <button onclick="scrollToSection('kelas')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold transition-all duration-300 shadow-lg shadow-cyan-500/25 flex items-center gap-2">
-        <i data-lucide="users" class="w-5 h-5"></i> Lihat Data Kelas (X & XI)
+        <i data-lucide="users" class="w-5 h-5"></i> Lihat Data Semua Kelas
       </button>
       <button onclick="scrollToSection('fasilitas')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 font-semibold transition-all duration-300 flex items-center gap-2">
         <i data-lucide="monitor" class="w-5 h-5"></i> Labor Komputer
       </button>
     </div>
 
-    <!-- Banner Foto Utama SMKN 2 Tembilahan -->
-    <div class="w-full max-w-5xl rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
-      <img src="Cuplikan layar 2026-09-07 145059.jpg" alt="SMKN 2 Tembilahan Aerial View" class="w-full h-auto object-cover">
+    <!-- Banner Utama Foto Sekolah -->
+    <div class="w-full max-w-5xl rounded-2xl overflow-hidden border border-slate-800 shadow-2xl relative group">
+      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80" alt="Gedung SMKN 2 Tembilahan" class="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-500">
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent flex items-end p-6">
+        <p class="text-lg font-semibold text-slate-200">Gedung dan Lingkungan Utama SMKN 2 Tembilahan</p>
+      </div>
     </div>
   </section>
 
@@ -60,94 +84,94 @@
   <section id="galeri" class="py-20 bg-slate-800/40 border-y border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold mb-4">Lingkungan SMKN 2 Tembilahan</h2>
-        <p class="text-slate-400">Dokumentasi area sekolah dan kegiatan siswa</p>
+        <h2 class="text-3xl font-bold mb-4">Lingkungan & Kegiatan SMKN 2 Tembilahan</h2>
+        <p class="text-slate-400">Suasana belajar, lapangan, dan aktivitas para siswa</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Foto Aerial Kawasan Sekolah -->
+        <!-- Foto Kawasan Sekolah -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:border-cyan-500/50 transition-all">
-          <img src="Cuplikan layar 2026-09-07 145059.jpg" alt="Tampilan Udara SMKN 2 Tembilahan" class="w-full h-56 object-cover">
+          <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80" alt="Lingkungan Sekolah" class="w-full h-56 object-cover">
           <div class="p-4">
-            <h3 class="font-bold text-lg text-cyan-400">Kawasan Sekolah</h3>
-            <p class="text-slate-400 text-sm">Tampilan udara area gedung dan fasilitas SMKN 2 Tembilahan.</p>
+            <h3 class="font-bold text-lg text-cyan-400">Kawasan Lingkungan Sekolah</h3>
+            <p class="text-slate-400 text-sm">Suasana area utama dan koridor kelas di SMKN 2 Tembilahan.</p>
           </div>
         </div>
 
-        <!-- Foto Lapangan Olahraga -->
+        <!-- Foto Lapangan -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:border-cyan-500/50 transition-all">
-          <img src="Cuplikan layar 2026-09-07 145146.jpg" alt="Lapangan Olahraga SMKN 2 Tembilahan" class="w-full h-56 object-cover">
+          <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&q=80" alt="Lapangan Olahraga" class="w-full h-56 object-cover">
           <div class="p-4">
-            <h3 class="font-bold text-lg text-cyan-400">Lapangan Olahraga</h3>
-            <p class="text-slate-400 text-sm">Area kegiatan outdoor, apel, dan sarana olahraga sekolah.</p>
+            <h3 class="font-bold text-lg text-cyan-400">Lapangan Upacara & Olahraga</h3>
+            <p class="text-slate-400 text-sm">Fasilitas kegiatan upacara bendera, olahraga, dan ekstrakurikuler.</p>
           </div>
         </div>
 
         <!-- Foto Kegiatan Siswa -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:border-cyan-500/50 transition-all">
-          <img src="Cuplikan layar 2026-09-07 145122.jpg" alt="Kegiatan Siswa SMKN 2 Tembilahan" class="w-full h-56 object-cover">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="Aktivitas Siswa" class="w-full h-56 object-cover">
           <div class="p-4">
-            <h3 class="font-bold text-lg text-cyan-400">Kegiatan & Acara Sekolah</h3>
-            <p class="text-slate-400 text-sm">Dokumentasi barisan siswa dan peringatan acara di sekolah.</p>
+            <h3 class="font-bold text-lg text-cyan-400">Kegiatan Ekstrakurikuler</h3>
+            <p class="text-slate-400 text-sm">Dokumentasi barisan Paskibra, OSIS, dan acara peringatan di sekolah.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Laboratorium TKJ Section -->
+  <!-- Laboratorium TKJ Section (Diperbarui dengan gambar labor nyata) -->
   <section id="fasilitas" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
-      <h2 class="text-3xl font-bold mb-4">Laboratorium TKJ</h2>
+      <h2 class="text-3xl font-bold mb-4">Laboratorium TKJ SMKN 2 Tembilahan</h2>
       <p class="text-slate-400">Klik kartu laboratorium untuk melihat detail fasilitas prasarana di dalamnya</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
       <!-- Lab Jaringan -->
-      <div onclick="openModal('Laboratorium Jaringan Komputer', 'Laboratorium utama untuk praktik routing, switching, dan konfigurasi Mikrotik.', ['30 Unit PC Praktikum', 'RouterBoard Mikrotik RB951/RB750', 'Switch Managed Cisco', 'Koneksi Internet Dedicated SMKN 2', 'Full AC & Proyektor Interactive'])" 
+      <div onclick="openModal('Laboratorium Jaringan & Server', 'Laboratorium utama untuk praktik routing, switching, dan konfigurasi Mikrotik.', ['30 Unit PC Praktikum High-Spec', 'RouterBoard Mikrotik RB951/RB750', 'Switch Managed Cisco 24 Port', 'Koneksi Internet Dedicated SMKN 2', 'Full AC & Proyektor Interactive'])" 
            class="cursor-pointer bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden hover:scale-[1.02] hover:border-cyan-500 transition-all duration-300">
-        <div class="h-48 bg-slate-700 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=600&q=80');">
-          <div class="w-full h-full bg-slate-900/60 flex items-center justify-center">
+        <div class="h-48 bg-slate-700 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80');">
+          <div class="w-full h-full bg-slate-900/50 flex items-center justify-center">
             <i data-lucide="network" class="w-12 h-12 text-cyan-400"></i>
           </div>
         </div>
         <div class="p-6">
           <h3 class="text-xl font-bold mb-2">Labor Jaringan & Server</h3>
-          <p class="text-slate-400 text-sm mb-4">Praktik konfigurasi jaringan LAN, WAN, Wireless, dan Administrasi Server.</p>
+          <p class="text-slate-400 text-sm mb-4">Praktik konfigurasi jaringan LAN, WAN, Wireless, dan Administrasi Server Linux/Windows.</p>
           <span class="text-xs text-cyan-400 font-semibold flex items-center gap-1">
             Klik Detail <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </span>
         </div>
       </div>
 
-      <!-- Lab Perakitan -->
-      <div onclick="openModal('Laboratorium Perakitan & Hardware', 'Ruang praktik bongkar pasang komputer, perawatan PC, dan instalasi kabel Fiber Optic.', ['Set Tool Kit Perakitan Komplek', 'Splicer & Cleaver Fiber Optic', 'LAN Tester & Tang Crimp', 'Komponen Hardware Cadangan', 'Meja Kerja Komputer Standar Industri'])" 
+      <!-- Lab Perakitan & Fiber Optic -->
+      <div onclick="openModal('Laboratorium Perakitan & Fiber Optic', 'Ruang praktik bongkar pasang komputer, perawatan PC, dan instalasi kabel Fiber Optic.', ['Set Tool Kit Perakitan Komputer Lengkap', 'Fusion Splicer & Cleaver Fiber Optic', 'OTDR & Optical Power Meter', 'LAN Tester & Tang Crimp Solder', 'Komponen Hardware & Rack Server Cadangan'])" 
            class="cursor-pointer bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden hover:scale-[1.02] hover:border-cyan-500 transition-all duration-300">
         <div class="h-48 bg-slate-700 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80');">
-          <div class="w-full h-full bg-slate-900/60 flex items-center justify-center">
+          <div class="w-full h-full bg-slate-900/50 flex items-center justify-center">
             <i data-lucide="wrench" class="w-12 h-12 text-blue-400"></i>
           </div>
         </div>
         <div class="p-6">
-          <h3 class="text-xl font-bold mb-2">Labor Perakitan & Fiber Optic</h3>
-          <p class="text-slate-400 text-sm mb-4">Tempat siswa merakit hardware PC, troubleshooting, serta pengelasan kabel Fiber Optic.</p>
+          <h3 class="text-xl font-bold mb-2">Labor Hardware & Fiber Optic</h3>
+          <p class="text-slate-400 text-sm mb-4">Tempat siswa merakit hardware PC, troubleshooting, serta penyambungan kabel Fiber Optic.</p>
           <span class="text-xs text-cyan-400 font-semibold flex items-center gap-1">
             Klik Detail <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </span>
         </div>
       </div>
 
-      <!-- Lab Software -->
-      <div onclick="openModal('Laboratorium Komputer Dasar / Pemrograman', 'Pusat pembelajaran dasar desain, sistem operasi, dan pemrograman web.', ['32 Unit PC Multimedia', 'Akses Server Lokal', 'Software Simulasi (Cisco Packet Tracer)', 'AC & Sound System', 'Papan Tulis Interaktif'])" 
+      <!-- Lab Software & Multimedia -->
+      <div onclick="openModal('Laboratorium Software & Desain', 'Pusat pembelajaran dasar komputer, desain grafis, dan pemrograman web.', ['32 Unit PC Core i5', 'Software Simulasi (Cisco Packet Tracer, GNS3)', 'Akses Server Lokal & Cloud Storage', 'Full Pendingin Ruangan (AC)', 'Audio System & Smart Board'])" 
            class="cursor-pointer bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden hover:scale-[1.02] hover:border-cyan-500 transition-all duration-300">
-        <div class="h-48 bg-slate-700 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80');">
-          <div class="w-full h-full bg-slate-900/60 flex items-center justify-center">
-            <i data-lucide="code" class="w-12 h-12 text-indigo-400"></i>
+        <div class="h-48 bg-slate-700 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80');">
+          <div class="w-full h-full bg-slate-900/50 flex items-center justify-center">
+            <i data-lucide="laptop" class="w-12 h-12 text-indigo-400"></i>
           </div>
         </div>
         <div class="p-6">
-          <h3 class="text-xl font-bold mb-2">Labor Komputer Dasar & Software</h3>
-          <p class="text-slate-400 text-sm mb-4">Digunakan oleh kelas X untuk pemahaman dasar komputer dan sistem operasi.</p>
+          <h3 class="text-xl font-bold mb-2">Labor Software & Aplikasi</h3>
+          <p class="text-slate-400 text-sm mb-4">Digunakan untuk praktikum dasar komputer, sistem operasi, serta pemrograman dasar.</p>
           <span class="text-xs text-cyan-400 font-semibold flex items-center gap-1">
             Klik Detail <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </span>
@@ -157,27 +181,33 @@
     </div>
   </section>
 
-  <!-- Siswa & Kelas Section -->
+  <!-- Siswa & Kelas Section (Lengkap dari Kelas 10, 11, hingga 12) -->
   <section id="kelas" class="py-20 bg-slate-800/50 border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold mb-4">Data Kelas TKJ SMKN 2 Tembilahan</h2>
-        <p class="text-slate-400">Pilih tombol kelas di bawah untuk melihat rincian wali kelas dan kapasitas siswa</p>
+        <p class="text-slate-400">Pilih tombol kelas di bawah untuk melihat detail wali kelas dan jumlah siswa</p>
       </div>
 
       <!-- Tab Buttons Navigation -->
       <div class="flex flex-wrap justify-center gap-3 mb-8">
-        <button id="btn-x-tkj1" onclick="switchClass('x-tkj1')" class="px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 text-sm">
-          10 TKJ 1
+        <button id="btn-x-tkj1" onclick="switchClass('x-tkj1')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 text-sm">
+          10 TKJ 1 (28)
         </button>
-        <button id="btn-x-tkj2" onclick="switchClass('x-tkj2')" class="px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
-          10 TKJ 2
+        <button id="btn-x-tkj2" onclick="switchClass('x-tkj2')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
+          10 TKJ 2 (32)
         </button>
-        <button id="btn-xi-tkj1" onclick="switchClass('xi-tkj1')" class="px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
-          11 TKJ 1 (30 Siswa)
+        <button id="btn-xi-tkj1" onclick="switchClass('xi-tkj1')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
+          11 TKJ 1 (30)
         </button>
-        <button id="btn-xi-tkj2" onclick="switchClass('xi-tkj2')" class="px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
-          11 TKJ 2 (28 Siswa)
+        <button id="btn-xi-tkj2" onclick="switchClass('xi-tkj2')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
+          11 TKJ 2 (28)
+        </button>
+        <button id="btn-xii-tkj1" onclick="switchClass('xii-tkj1')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
+          12 TKJ 1 (34)
+        </button>
+        <button id="btn-xii-tkj2" onclick="switchClass('xii-tkj2')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
+          12 TKJ 2 (31)
         </button>
       </div>
 
@@ -189,10 +219,10 @@
             <p class="text-slate-400 text-sm">Tingkat: <span class="text-slate-200 font-semibold">Fase E / Kelas X</span></p>
           </div>
           <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
-            Kapasitas Siswa: <span class="text-cyan-400">32 Siswa</span>
+            Jumlah Siswa: <span class="text-cyan-400">28 Siswa</span>
           </div>
         </div>
-        <p class="text-slate-300">Fokus Dasar Pembelajaran: Pembentukan kompetensi dasar Informatika, K3LH, dan Dasar-dasar Teknik Jaringan Komputer.</p>
+        <p class="text-slate-300">Fokus Pembelajaran: Fondasi Dasar Informatika, Keselamatan Kerja (K3LH), serta Pengenalan Perangkat Jaringan Dasar.</p>
       </div>
 
       <!-- Content 10 TKJ 2 -->
@@ -203,10 +233,10 @@
             <p class="text-slate-400 text-sm">Tingkat: <span class="text-slate-200 font-semibold">Fase E / Kelas X</span></p>
           </div>
           <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
-            Kapasitas Siswa: <span class="text-cyan-400">30 Siswa</span>
+            Jumlah Siswa: <span class="text-cyan-400">32 Siswa</span>
           </div>
         </div>
-        <p class="text-slate-300">Fokus Dasar Pembelajaran: Perakitan komputer dasar, perancangan LAN sederhana, dan pengenalan Sistem Operasi Linux.</p>
+        <p class="text-slate-300">Fokus Pembelajaran: Dasar-dasar Perakitan PC, Pengenalan Perangkat Kabel LAN, serta Pemahaman Sistem Operasi.</p>
       </div>
 
       <!-- Content 11 TKJ 1 -->
@@ -220,7 +250,7 @@
             Jumlah Siswa: <span class="text-cyan-400">30 Orang</span>
           </div>
         </div>
-        <p class="text-slate-300 mb-6">Fokus Peminatan: Administration Server & Network Infrastructure (Mikrotik & Routing).</p>
+        <p class="text-slate-300">Fokus Peminatan: Administrasi Infrastruktur Jaringan (Mikrotik, Routing & Switching).</p>
       </div>
 
       <!-- Content 11 TKJ 2 -->
@@ -234,7 +264,35 @@
             Jumlah Siswa: <span class="text-indigo-400">28 Orang</span>
           </div>
         </div>
-        <p class="text-slate-300 mb-6">Fokus Peminatan: System Administrator, Fiber Optic Installation & Network Security.</p>
+        <p class="text-slate-300">Fokus Peminatan: System Administrator, Pengelasan Fiber Optic & Keamanan Jaringan.</p>
+      </div>
+
+      <!-- Content 12 TKJ 1 -->
+      <div id="content-xii-tkj1" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-6 gap-4">
+          <div>
+            <h3 class="text-2xl font-bold text-emerald-400">Kelas 12 TKJ 1</h3>
+            <p class="text-slate-400 text-sm">Tingkat: <span class="text-slate-200 font-semibold">Tingkat Akhir / Persiapan PKL & UKK</span></p>
+          </div>
+          <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
+            Jumlah Siswa: <span class="text-emerald-400">34 Siswa</span>
+          </div>
+        </div>
+        <p class="text-slate-300">Fokus Pembelajaran: Uji Kompetensi Keahlian (UKK), Cloud Computing, dan Persiapan Praktek Kerja Lapangan (PKL).</p>
+      </div>
+
+      <!-- Content 12 TKJ 2 -->
+      <div id="content-xii-tkj2" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-6 gap-4">
+          <div>
+            <h3 class="text-2xl font-bold text-emerald-400">Kelas 12 TKJ 2</h3>
+            <p class="text-slate-400 text-sm">Tingkat: <span class="text-slate-200 font-semibold">Tingkat Akhir / Persiapan PKL & UKK</span></p>
+          </div>
+          <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
+            Jumlah Siswa: <span class="text-emerald-400">31 Siswa</span>
+          </div>
+        </div>
+        <p class="text-slate-300">Fokus Pembelajaran: Administrasi System Linux Server Lanjut, Manajemen Wireless Enterprise, dan Project Tugas Akhir.</p>
       </div>
 
     </div>
@@ -271,17 +329,17 @@
     }
 
     function switchClass(target) {
-      const keys = ['x-tkj1', 'x-tkj2', 'xi-tkj1', 'xi-tkj2'];
+      const keys = ['x-tkj1', 'x-tkj2', 'xi-tkj1', 'xi-tkj2', 'xii-tkj1', 'xii-tkj2'];
       
       keys.forEach(k => {
         const btn = document.getElementById(`btn-${k}`);
         const content = document.getElementById(`content-${k}`);
         
         if (k === target) {
-          btn.className = "px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 text-sm";
+          btn.className = "px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 text-sm";
           content.classList.remove('hidden');
         } else {
-          btn.className = "px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm";
+          btn.className = "px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm";
           content.classList.add('hidden');
         }
       });
