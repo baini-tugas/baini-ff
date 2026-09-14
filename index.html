@@ -71,7 +71,6 @@
             gap: 6px;
         }
 
-        /* TULISAN TKJ DENGAN LATAR HIJAU & TEKS PUTIH */
         .badge-tkj {
             background-color: var(--primary);
             color: #ffffff !important;
@@ -121,8 +120,15 @@
             gap: 16px;
         }
 
+        .hero-logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
         .hero-logo {
-            width: 120px;
+            width: 110px;
             max-width: 100%;
             height: auto;
             object-fit: contain;
@@ -343,7 +349,7 @@
         @media (max-width: 600px) {
             .nav-menu { display: none; }
             .hero h1 { font-size: 1.6rem; }
-            .hero-logo { width: 90px; }
+            .hero-logo { width: 80px; }
         }
     </style>
 </head>
@@ -352,7 +358,8 @@
     <!-- NAVBAR -->
     <nav>
         <a href="#" class="logo-brand">
-            <img src="logo.png" alt="Logo SMKN 2 Tembilahan">
+            <!-- LOGO SMKN 2 TEMBILAHAN -->
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…50Mrxs+ULkRMb0CsABkjHKpgpV1ivUJULxKhepUISoQlQhf/Z" alt="Logo SMKN 2 Tembilahan">
             <div class="logo-text"><span class="badge-tkj">TKJ</span> SMKN 2 Tembilahan</div>
         </a>
         <ul class="nav-menu">
@@ -367,7 +374,13 @@
 
         <!-- HEADER HERO -->
         <div class="hero">
-            <img src="logo.png" alt="Logo SMKN 2 Tembilahan" class="hero-logo">
+            <div class="hero-logo-container">
+                <!-- LOGO 1: SMKN 2 TEMBILAHAN -->
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…50Mrxs+ULkRMb0CsABkjHKpgpV1ivUJULxKhepUISoQlQhf/Z" alt="Logo SMKN 2 Tembilahan" class="hero-logo">
+                
+                <!-- LOGO 2: LOGO TKJ BARU -->
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD…II1cV+3lUeaUyuuVopKBiuSLNERREURBoiwKIg0RFERRF/9k=" alt="Logo TKJ" class="hero-logo">
+            </div>
             <h1><span class="badge-tkj">TKJ</span> SMKN 2 Tembilahan</h1>
             <p>Program Keahlian Teknik Komputer dan Jaringan — Pusat Keunggulan Vokasi Teknologi Informasi & Komunikasi</p>
         </div>
@@ -394,8 +407,6 @@
         </div>
         
         <div class="grid-kelas">
-            
-            <!-- X TKJ 1 -->
             <div class="kelas-card" onclick="openModal('Detail X TKJ 1', '<b>Wali Kelas:</b> Andri Mahendra<br><b>Jumlah Siswa:</b> 26 Siswa<br><b>Lokasi:</b> Lab Komputer 1<br><b>Materi Fokus:</b> Dasar K3LH, Assembly PC, dan Jaringan Dasar LAN.')">
                 <h3>X TKJ 1</h3>
                 <div class="kelas-info">Wali Kelas: Andri Mahendra</div>
@@ -403,7 +414,6 @@
                 <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
-            <!-- X TKJ 2 -->
             <div class="kelas-card" onclick="openModal('Detail X TKJ 2', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 27 Siswa<br><b>Lokasi:</b> Lab Komputer 2<br><b>Materi Fokus:</b> Pemrograman Dasar & Maintenance PC.')">
                 <h3>X TKJ 2</h3>
                 <div class="kelas-info">Wali Kelas: -</div>
@@ -411,7 +421,6 @@
                 <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
-            <!-- XI TKJ 1 -->
             <div class="kelas-card" onclick="openModal('Detail XI TKJ 1', '<b>Wali Kelas:</b> Ririn Sugiarti<br><b>Jumlah Siswa:</b> 30 Siswa<br><b>Lokasi:</b> Lab Komputer 3<br><b>Materi Fokus:</b> Router MikroTik, Server Linux, dan Bandwidth Management.')">
                 <h3>XI TKJ 1</h3>
                 <div class="kelas-info">Wali Kelas: Ririn Sugiarti</div>
@@ -419,7 +428,6 @@
                 <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
-            <!-- XI TKJ 2 -->
             <div class="kelas-card" onclick="openModal('Detail XI TKJ 2', '<b>Wali Kelas:</b> Moh. Roni<br><b>Jumlah Siswa:</b> 27 Siswa<br><b>Lokasi:</b> Lab Komputer 2<br><b>Materi Fokus:</b> Fiber Optic Splicing, Wireless Network, dan Server Hosting.')">
                 <h3>XI TKJ 2</h3>
                 <div class="kelas-info">Wali Kelas: Moh. Roni</div>
@@ -427,7 +435,6 @@
                 <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
-            <!-- XII TKJ 1 -->
             <div class="kelas-card" onclick="openModal('Detail XII TKJ 1', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 34 Siswa<br><b>Materi Fokus:</b> Persiapan UKK & Network Security.')">
                 <h3>XII TKJ 1</h3>
                 <div class="kelas-info">Wali Kelas: -</div>
@@ -435,14 +442,12 @@
                 <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
-            <!-- XII TKJ 2 -->
             <div class="kelas-card" onclick="openModal('Detail XII TKJ 2', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 32 Siswa<br><b>Materi Fokus:</b> Uji Kompetensi Keahlian (UKK) & Proyek Akhir Jaringan.')">
                 <h3>XII TKJ 2</h3>
                 <div class="kelas-info">Wali Kelas: -</div>
                 <div class="badge-siswa">32 Siswa</div>
                 <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
-
         </div>
 
         <!-- GALERI FOTO -->
@@ -451,7 +456,6 @@
         </div>
         
         <div class="grid-galeri">
-
             <div class="galeri-card" onclick="openModal('Praktikum Rack Server & Router', 'Siswa melakukan praktik penyusunan kabel UTP/STP pada patch panel serta setting IP Address pada Router MikroTik.')">
                 <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23e2e8f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2364748b' font-size='15'>[ Foto Praktikum Server ]</text></svg>" alt="Praktikum Server">
                 <div class="galeri-card-body">
@@ -475,7 +479,7 @@
                 <div class="galeri-card-body">
                     <h4>Laboratorium Utama</h4>
                     <p>Fasilitas Pembelajaran Praktikum</p>
-                    <span class="click-hint">🔍 Klik untuk penjelasan</span>
+                    <span class="click-hint">🔍 Klik me-penjelasan</span>
                 </div>
             </div>
 
@@ -487,7 +491,6 @@
                     <span class="click-hint">🔍 Klik untuk penjelasan</span>
                 </div>
             </div>
-
         </div>
 
     </div>
