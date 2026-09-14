@@ -7,14 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-body: #121417;          /* Hitam keabuan netral */
-            --bg-card: #1c1f24;          /* Abu-abu gelap elegan */
-            --bg-card-hover: #262a30;    /* Card saat di-hover */
-            --border: #2e333d;           /* Border abu-abu halus */
-            --text-main: #f1f5f9;        /* Putih gading */
-            --text-sub: #94a3b8;         /* Abu-abu terang */
-            --accent-gold: #f59e0b;      /* Aksen Emas/Amber lembut */
-            --accent-white: #e2e8f0;     /* Aksen Putih Platinum */
+            --bg-body: #f4f6f9;          /* Latar terang & segar */
+            --bg-card: #ffffff;          /* Putih bersih */
+            --bg-card-hover: #f0fdf4;    /* Hijau muda sangat lembut saat hover */
+            --border: #e2e8f0;           /* Border abu-abu terang */
+            --primary: #16a34a;          /* Hijau segar khas logo sekolah */
+            --primary-dark: #15803d;     /* Hijau tua untuk tombol/teks aksen */
+            --accent-gold: #d97706;      /* Warna emas hangat */
+            --text-main: #1e293b;        /* Teks gelap mudah dibaca */
+            --text-sub: #64748b;         /* Abu-abu sedang */
         }
 
         * {
@@ -37,7 +38,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(28, 31, 36, 0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
             padding: 12px 25px;
             display: flex;
@@ -45,6 +46,7 @@
             align-items: center;
             z-index: 1000;
             border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
 
         .logo-brand {
@@ -61,9 +63,9 @@
         }
 
         .logo-text {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.1rem;
-            color: var(--text-main);
+            color: var(--primary-dark);
         }
 
         .logo-text span {
@@ -79,13 +81,13 @@
         .nav-menu a {
             color: var(--text-sub);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
             transition: color 0.2s;
         }
 
         .nav-menu a:hover {
-            color: var(--text-main);
+            color: var(--primary);
         }
 
         /* CONTAINER */
@@ -99,20 +101,22 @@
         .hero {
             text-align: center;
             margin-bottom: 35px;
-            padding: 35px 20px;
+            padding: 40px 20px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 14px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
         .hero-logo {
-            width: 90px;
-            height: 90px;
+            width: 120px;
+            height: 120px;
             object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
         }
 
         .hero h1 {
@@ -123,13 +127,13 @@
         }
 
         .hero h1 span {
-            color: var(--accent-gold);
+            color: var(--primary);
         }
 
         .hero p {
             color: var(--text-sub);
             font-size: 1rem;
-            max-width: 600px;
+            max-width: 650px;
         }
 
         .section-title {
@@ -137,7 +141,8 @@
             color: var(--text-main);
             margin: 35px 0 15px 0;
             padding-bottom: 8px;
-            border-bottom: 2px solid var(--border);
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
         }
 
         /* CARD SECTIONS */
@@ -149,34 +154,33 @@
             margin-bottom: 20px;
             cursor: pointer;
             transition: all 0.2s ease;
-            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .info-card:hover {
             background: var(--bg-card-hover);
-            border-color: var(--accent-gold);
+            border-color: var(--primary);
             transform: translateY(-2px);
         }
 
         .info-card h2 {
             font-size: 1.3rem;
-            color: var(--accent-gold);
+            color: var(--primary-dark);
             margin-bottom: 12px;
         }
 
         .info-card p {
-            color: var(--text-sub);
+            color: var(--text-main);
             font-size: 0.95rem;
             margin-bottom: 8px;
         }
 
         .click-hint {
-            font-size: 0.8rem;
-            color: var(--accent-white);
+            font-size: 0.85rem;
+            color: var(--primary-dark);
             font-weight: 600;
             margin-top: 12px;
             display: inline-block;
-            opacity: 0.8;
         }
 
         /* GRID KELAS */
@@ -193,17 +197,18 @@
             padding: 20px;
             cursor: pointer;
             transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .kelas-card:hover {
-            border-color: var(--accent-gold);
+            border-color: var(--primary);
             background: var(--bg-card-hover);
             transform: translateY(-2px);
         }
 
         .kelas-card h3 {
             font-size: 1.2rem;
-            color: var(--text-main);
+            color: var(--primary-dark);
             margin-bottom: 8px;
         }
 
@@ -215,12 +220,12 @@
 
         .badge-siswa {
             display: inline-block;
-            background: #2a2e37;
-            color: var(--accent-gold);
-            padding: 3px 10px;
-            border-radius: 6px;
+            background: #dcfce7;
+            color: var(--primary-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-top: 8px;
         }
 
@@ -238,10 +243,11 @@
             overflow: hidden;
             cursor: pointer;
             transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .galeri-card:hover {
-            border-color: var(--accent-gold);
+            border-color: var(--primary);
             transform: translateY(-2px);
         }
 
@@ -275,7 +281,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -283,14 +289,14 @@
         }
 
         .modal-box {
-            background: #181a1f;
-            border: 1px solid var(--accent-gold);
+            background: #ffffff;
+            border-top: 4px solid var(--primary);
             border-radius: 14px;
             max-width: 550px;
             width: 100%;
             padding: 24px;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
         .close-btn {
@@ -307,13 +313,13 @@
         }
 
         .modal-title {
-            color: var(--accent-gold);
+            color: var(--primary-dark);
             margin-bottom: 12px;
             font-size: 1.3rem;
         }
 
         .modal-desc {
-            color: var(--accent-white);
+            color: var(--text-main);
             font-size: 0.95rem;
             line-height: 1.6;
         }
@@ -321,7 +327,7 @@
         footer {
             text-align: center;
             padding: 25px;
-            background: var(--bg-card);
+            background: #ffffff;
             border-top: 1px solid var(--border);
             margin-top: 50px;
             font-size: 0.85rem;
@@ -339,7 +345,7 @@
     <!-- NAVBAR -->
     <nav>
         <a href="#" class="logo-brand">
-            <img src="logo.png" alt="Logo SMKN 2 Tembilahan" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'42\' height=\'42\' viewBox=\'0 0 42 42\'><circle cx=\'21\' cy=\'21\' r=\'20\' fill=\'%23262a30\' stroke=\'%23f59e0b\' stroke-width=\'2\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23f59e0b\' font-size=\'10\' font-weight=\'bold\'>SMKN 2</text></svg>'">
+            <img src="1000770583.jpg" alt="Logo SMKN 2 Tembilahan">
             <div class="logo-text">TKJ <span>SMKN 2 Tembilahan</span></div>
         </a>
         <ul class="nav-menu">
@@ -354,7 +360,7 @@
 
         <!-- HEADER HERO -->
         <div class="hero">
-            <img src="logo.png" alt="Logo Utama SMKN 2 Tembilahan" class="hero-logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'90\' height=\'90\' viewBox=\'0 0 90 90\'><circle cx=\'45\' cy=\'45\' r=\'42\' fill=\'%231c1f24\' stroke=\'%23f59e0b\' stroke-width=\'3\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23f59e0b\' font-size=\'18\' font-weight=\'bold\'>SMKN 2</text></svg>'">
+            <img src="1000770583.jpg" alt="Logo SMKN 2 Tembilahan" class="hero-logo">
             <h1>TKJ <span>SMKN 2 Tembilahan</span></h1>
             <p>Program Keahlian Teknik Komputer dan Jaringan — Pusat Keunggulan Vokasi Teknologi Informasi & Komunikasi</p>
         </div>
@@ -376,31 +382,34 @@
         </div>
 
         <!-- DATA KELAS -->
-        <h2 id="kelas" class="section-title">Data Kelas TKJ</h2>
+        <div>
+            <h2 id="kelas" class="section-title">Data Kelas TKJ</h2>
+        </div>
+        
         <div class="grid-kelas">
             
             <!-- X TKJ 1 -->
-            <div class="kelas-card" onclick="openModal('Detail X TKJ 1', '<b>Wali Kelas:</b> Andri Mahendra<br><b>Jumlah Siswa:</b> 26 Siswa<br><b>Lokasi:</b> Lab Komputer 1 (Lantai 2)<br><b>Materi Fokus:</b> Dasar-Dasar K3LH, Assembly PC, dan Perakitan Jaringan LAN.')">
+            <div class="kelas-card" onclick="openModal('Detail X TKJ 1', '<b>Wali Kelas:</b> Andri Mahendra<br><b>Jumlah Siswa:</b> 26 Siswa<br><b>Lokasi:</b> Lab Komputer 1<br><b>Materi Fokus:</b> Dasar K3LH, Assembly PC, dan Jaringan Dasar LAN.')">
                 <h3>X TKJ 1</h3>
                 <div class="kelas-info">Wali Kelas: Andri Mahendra</div>
                 <div class="badge-siswa">26 Siswa</div>
-                <div><span class="click-hint">🔍 Klik info detail kelas</span></div>
+                <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
             <!-- X TKJ 2 -->
-            <div class="kelas-card" onclick="openModal('Detail X TKJ 2', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 27 Siswa<br><b>Lokasi:</b> Lab Komputer 2<br><b>Materi Fokus:</b> Dasar Pemrograman, Hardware PC, dan Simulasi Jaringan.')">
+            <div class="kelas-card" onclick="openModal('Detail X TKJ 2', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 27 Siswa<br><b>Lokasi:</b> Lab Komputer 2<br><b>Materi Fokus:</b> Pemrograman Dasar & Maintenance PC.')">
                 <h3>X TKJ 2</h3>
                 <div class="kelas-info">Wali Kelas: -</div>
                 <div class="badge-siswa">27 Siswa</div>
-                <div><span class="click-hint">🔍 Klik info detail kelas</span></div>
+                <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
             <!-- XI TKJ 1 -->
-            <div class="kelas-card" onclick="openModal('Detail XI TKJ 1', '<b>Wali Kelas:</b> Ririn Sugiarti<br><b>Jumlah Siswa:</b> 30 Siswa<br><b>Lokasi:</b> Lab Komputer 3<br><b>Materi Fokus:</b> Router MikroTik, Server Debian Linux, dan Manajemen Bandwidth.')">
+            <div class="kelas-card" onclick="openModal('Detail XI TKJ 1', '<b>Wali Kelas:</b> Ririn Sugiarti<br><b>Jumlah Siswa:</b> 30 Siswa<br><b>Lokasi:</b> Lab Komputer 3<br><b>Materi Fokus:</b> Router MikroTik, Server Linux, dan Bandwidth Management.')">
                 <h3>XI TKJ 1</h3>
                 <div class="kelas-info">Wali Kelas: Ririn Sugiarti</div>
                 <div class="badge-siswa">30 Siswa</div>
-                <div><span class="click-hint">🔍 Klik info detail kelas</span></div>
+                <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
             <!-- XI TKJ 2 -->
@@ -408,64 +417,67 @@
                 <h3>XI TKJ 2</h3>
                 <div class="kelas-info">Wali Kelas: Moh. Roni</div>
                 <div class="badge-siswa">27 Siswa</div>
-                <div><span class="click-hint">🔍 Klik info detail kelas</span></div>
+                <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
             <!-- XII TKJ 1 -->
-            <div class="kelas-card" onclick="openModal('Detail XII TKJ 1', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 34 Siswa<br><b>Status:</b> Tingkat Akhir<br><b>Materi Fokus:</b> Persiapan Uji Kompetensi Keahlian (UKK) & Keamanan Jaringan.')">
+            <div class="kelas-card" onclick="openModal('Detail XII TKJ 1', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 34 Siswa<br><b>Materi Fokus:</b> Persiapan UKK & Network Security.')">
                 <h3>XII TKJ 1</h3>
                 <div class="kelas-info">Wali Kelas: -</div>
                 <div class="badge-siswa">34 Siswa</div>
-                <div><span class="click-hint">🔍 Klik info detail kelas</span></div>
+                <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
             <!-- XII TKJ 2 -->
-            <div class="kelas-card" onclick="openModal('Detail XII TKJ 2', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 32 Siswa<br><b>Status:</b> Tingkat Akhir<br><b>Materi Fokus:</b> Uji Kompetensi Keahlian (UKK) & Proyek Akhir Jaringan.')">
+            <div class="kelas-card" onclick="openModal('Detail XII TKJ 2', '<b>Wali Kelas:</b> Konfirmasi Sekolah<br><b>Jumlah Siswa:</b> 32 Siswa<br><b>Materi Fokus:</b> Uji Kompetensi Keahlian (UKK) & Proyek Akhir Jaringan.')">
                 <h3>XII TKJ 2</h3>
                 <div class="kelas-info">Wali Kelas: -</div>
                 <div class="badge-siswa">32 Siswa</div>
-                <div><span class="click-hint">🔍 Klik info detail kelas</span></div>
+                <div><span class="click-hint">🔍 Klik info detail</span></div>
             </div>
 
         </div>
 
         <!-- GALERI FOTO -->
-        <h2 id="galeri" class="section-title">Galeri Praktikum & Kegiatan</h2>
+        <div>
+            <h2 id="galeri" class="section-title">Galeri Praktikum & Kegiatan</h2>
+        </div>
+        
         <div class="grid-galeri">
 
             <div class="galeri-card" onclick="openModal('Praktikum Rack Server & Router', 'Siswa melakukan praktik penyusunan kabel UTP/STP pada patch panel serta setting IP Address pada Router MikroTik.')">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23262a30'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='15'>[ Foto Praktikum Server ]</text></svg>" alt="Praktikum Server">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23e2e8f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2364748b' font-size='15'>[ Foto Praktikum Server ]</text></svg>" alt="Praktikum Server">
                 <div class="galeri-card-body">
                     <h4>Praktikum Rack Server</h4>
-                    <p>Konfigurasi Router & Manajemen Bandwidth</p>
-                    <span class="click-hint">🔍 Klik untuk penjelasan foto</span>
+                    <p>Konfigurasi Router & Bandwidth Management</p>
+                    <span class="click-hint">🔍 Klik untuk penjelasan</span>
                 </div>
             </div>
 
             <div class="galeri-card" onclick="openModal('Perakitan Hardware Komputer', 'Kegiatan bongkar pasang komponen PC, pembersihan fan processor, dan pengujian Power Supply.')">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23262a30'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='15'>[ Foto Perakitan PC ]</text></svg>" alt="Perakitan PC">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23e2e8f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2364748b' font-size='15'>[ Foto Perakitan PC ]</text></svg>" alt="Perakitan PC">
                 <div class="galeri-card-body">
                     <h4>Perakitan Hardware</h4>
                     <p>Maintenance & Troubleshooting PC</p>
-                    <span class="click-hint">🔍 Klik untuk penjelasan foto</span>
+                    <span class="click-hint">🔍 Klik untuk penjelasan</span>
                 </div>
             </div>
 
             <div class="galeri-card" onclick="openModal('Laboratorium Komputer', 'Ruang kelas komputer dilengkapi pendingin udara, LCD Projector, dan jaringan intranet.')">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23262a30'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='15'>[ Foto Lab Komputer ]</text></svg>" alt="Lab Komputer">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23e2e8f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2364748b' font-size='15'>[ Foto Lab Komputer ]</text></svg>" alt="Lab Komputer">
                 <div class="galeri-card-body">
                     <h4>Laboratorium Utama</h4>
-                    <p>Fasilitas Pembelajaran Komputer</p>
-                    <span class="click-hint">🔍 Klik untuk penjelasan foto</span>
+                    <p>Fasilitas Pembelajaran Praktikum</p>
+                    <span class="click-hint">🔍 Klik untuk penjelasan</span>
                 </div>
             </div>
 
             <div class="galeri-card" onclick="openModal('Penyambungan Fiber Optic', 'Proses pengupasan inti kaca kabel FO dan penyambungan menggunakan alat Fusion Splicer.')">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23262a30'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='15'>[ Foto Fiber Optic ]</text></svg>" alt="Fiber Optic">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='170' viewBox='0 0 300 170'><rect width='300' height='170' fill='%23e2e8f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%2364748b' font-size='15'>[ Foto Fiber Optic ]</text></svg>" alt="Fiber Optic">
                 <div class="galeri-card-body">
                     <h4>Praktikum Fiber Optic</h4>
                     <p>Splicing & Pengukuran OTDR</p>
-                    <span class="click-hint">🔍 Klik untuk penjelasan foto</span>
+                    <span class="click-hint">🔍 Klik untuk penjelasan</span>
                 </div>
             </div>
 
@@ -501,3 +513,9 @@
         window.onclick = function(e) {
             var modal = document.getElementById('modal');
             if (e.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
