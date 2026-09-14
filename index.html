@@ -38,11 +38,24 @@
             background: linear-gradient(135deg, rgba(10, 75, 156, 0.92), rgba(0, 242, 254, 0.75)), 
                         url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
             color: var(--white);
-            padding: 4.5rem 1rem;
+            padding: 3.5rem 1rem;
             text-align: center;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             box-shadow: var(--shadow);
+        }
+
+        /* Styling Tambahan untuk Logo Sekolah */
+        header .school-logo {
+            width: 110px;
+            height: auto;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+        }
+
+        header .school-logo:hover {
+            transform: scale(1.05);
         }
 
         header .logo-badge {
@@ -206,7 +219,7 @@
             color: var(--text-muted);
         }
 
-        /* Grid Gallery Gambar (Bisa Dipencet) */
+        /* Grid Gallery Gambar */
         .grid-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -322,6 +335,7 @@
         @media (max-width: 768px) {
             header h1 { font-size: 1.8rem; }
             header p { font-size: 0.95rem; }
+            header .school-logo { width: 85px; }
             .card { padding: 1.2rem; }
         }
     </style>
@@ -330,7 +344,10 @@
 
     <!-- Header Section -->
     <header>
-        <div class="logo-badge">SMKN 2 Tembilahan</div>
+        <!-- Logo Sekolah -->
+        <img src="2010tkj.jpg" alt="Logo SMKN 2 Tembilahan" class="school-logo">
+        
+        <div><span class="logo-badge">SMKN 2 Tembilahan</span></div>
         <h1>Teknik Komputer & Jaringan</h1>
         <p>Mencetak Generasi Ahli Jaringan, Sistem Komputer, dan Administrator IT Berdaya Saing.</p>
     </header>
@@ -347,7 +364,7 @@
             </p>
         </section>
 
-        <!-- Data Kelas TKJ (Bisa Dipencet) -->
+        <!-- Data Kelas TKJ -->
         <section class="card">
             <div class="section-title">
                 <h2>Data Lokal Kelas TKJ</h2>
@@ -401,13 +418,12 @@
             </div>
         </section>
 
-        <!-- Galeri Kegiatan & Fasilitas (Bisa Dipencet) -->
+        <!-- Galeri Kegiatan & Fasilitas -->
         <section class="card">
             <div class="section-title">
                 <h2>Galeri & Fasilitas TKJ</h2>
             </div>
             <div class="grid-gallery">
-                <!-- Praktikum Jaringan -->
                 <div class="gallery-item" onclick="showInfo('Praktikum Jaringan & Server', '<p><strong>Deskripsi Praktikum:</strong> Siswa diajarkan cara melakukan pengabelan (Crimping kabel UTP Cat6), setting Router MikroTik, membuat VLAN, serta mengonfigurasi Server Linux/Windows.</p><p><strong>Alat yang Digunakan:</strong> Tang Crimping, Cable Tester, Router Board Mikrotik, Switch Hub, Fiber Optic Splicer.</p>')">
                     <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" alt="Praktikum Jaringan">
                     <div class="gallery-overlay">
@@ -415,7 +431,6 @@
                     </div>
                 </div>
 
-                <!-- Perakitan Hardware -->
                 <div class="gallery-item" onclick="showInfo('Perakitan & Perawatan Hardware', '<p><strong>Deskripsi Praktikum:</strong> Siswa mempelajari pembongkaran & pemasangan komponen PC, diagnosa kerusakan motherboard, instalasi Sistem Operasi (Windows/Linux), dan pembersihan perangkat keras.</p><p><strong>Peralatan:</strong> Obeng Set, Gelang Antistatis, Thermal Paste, Multitester.</p>')">
                     <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=600&q=80" alt="Hardware Komputer">
                     <div class="gallery-overlay">
@@ -423,7 +438,6 @@
                     </div>
                 </div>
 
-                <!-- Laboratorium Komputer -->
                 <div class="gallery-item" onclick="showInfo('Laboratorium Komputer TKJ', '<p><strong>Fasilitas Lab:</strong> Dilengkapi dengan unit PC client modern, koneksi Wi-Fi Dedicated Full Speed, AC, Proyektor, serta Rack Server dedicated untuk simulasi Uji Kompetensi Keahlian (UKK).</p><p><strong>Kapasitas:</strong> 36 Unit Komputer Siap Pakai.</p>')">
                     <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Lab Komputer">
                     <div class="gallery-overlay">
@@ -433,7 +447,7 @@
             </div>
         </section>
 
-        <!-- Materi Keahlian (Bisa Dipencet) -->
+        <!-- Materi Keahlian -->
         <section class="card">
             <div class="section-title">
                 <h2>Materi & Keahlian Pembelajaran</h2>
@@ -470,9 +484,7 @@
             <div class="modal-header">
                 <h3 id="modalTitle">Informasi</h3>
             </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Data akan dimasukkan secara dinamis lewat JS -->
-            </div>
+            <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
@@ -493,7 +505,6 @@
             document.getElementById('infoModal').style.display = 'none';
         }
 
-        // Tutup pop-up jika mengklik di luar kotak modal
         window.onclick = function(event) {
             var modal = document.getElementById('infoModal');
             if (event.target == modal) {
