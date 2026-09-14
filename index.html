@@ -1,371 +1,338 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TKJ - SMKN 2 Tembilahan</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-white">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKJ - SMKN 2 Tembilahan</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Navbar -->
-  <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="scrollToSection('hero')">
-          <div class="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/30 text-cyan-400">
-            <i data-lucide="network" class="w-6 h-6"></i>
-          </div>
-          <span class="font-bold text-xl tracking-wider bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">TKJ SMKN 2 TEMBILAHAN</span>
-        </div>
-        <div class="hidden md:flex space-x-8 text-sm font-medium">
-          <button onclick="scrollToSection('galeri')" class="hover:text-cyan-400 transition-colors">Galeri Sekolah</button>
-          <button onclick="scrollToSection('fasilitas')" class="hover:text-cyan-400 transition-colors">Laboratorium</button>
-          <button onclick="scrollToSection('kelas')" class="hover:text-cyan-400 transition-colors">Siswa & Kelas</button>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section dengan Foto Gerbang Utama Sekolah -->
-  <section id="hero" class="relative pt-32 pb-20 px-4 max-w-7xl mx-auto text-center flex flex-col items-center justify-center min-h-screen">
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm mb-6 animate-pulse">
-      <i data-lucide="school" class="w-4 h-4"></i> SMKN 2 Tembilahan - Indragiri Hilir
-    </div>
-    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 max-w-4xl leading-tight">
-      Jurusan <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">Teknik Komputer & Jaringan</span>
-    </h1>
-    <p class="text-slate-400 text-lg max-w-2xl mb-8 leading-relaxed">
-      Pusat pembelajaran teknologi informasi, jaringan komputer, dan keamanan siber di SMKN 2 Tembilahan. Menyiapkan generasi terampil, kreatif, dan siap kerja.
-    </p>
-
-    <!-- Ringkasan Statistik -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl mb-8 text-center">
-      <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
-        <p class="text-xs text-slate-400 uppercase">Total Siswa TKJ</p>
-        <p class="text-2xl font-bold text-cyan-400">183 Siswa</p>
-      </div>
-      <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
-        <p class="text-xs text-slate-400 uppercase">Total Rombel</p>
-        <p class="text-2xl font-bold text-blue-400">6 Kelas</p>
-      </div>
-      <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
-        <p class="text-xs text-slate-400 uppercase">Laboratorium</p>
-        <p class="text-2xl font-bold text-indigo-400">3 Lab Utama</p>
-      </div>
-      <div class="p-4 bg-slate-800/60 rounded-xl border border-slate-700">
-        <p class="text-xs text-slate-400 uppercase">Akreditasi</p>
-        <p class="text-2xl font-bold text-emerald-400">Unggul (A)</p>
-      </div>
-    </div>
-
-    <div class="flex flex-wrap gap-4 justify-center mb-12">
-      <button onclick="scrollToSection('kelas')" class="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold transition-all duration-300 shadow-lg shadow-cyan-500/25 flex items-center gap-2">
-        <i data-lucide="users" class="w-5 h-5"></i> Lihat Data Semua Kelas
-      </button>
-      <button onclick="scrollToSection('fasilitas')" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 font-semibold transition-all duration-300 flex items-center gap-2">
-        <i data-lucide="monitor" class="w-5 h-5"></i> Labor Komputer
-      </button>
-    </div>
-
-    <!-- Banner Utama Foto Gerbang SMKN 2 Tembilahan -->
-    <div class="w-full max-w-5xl rounded-2xl overflow-hidden border border-slate-800 shadow-2xl relative group">
-      <img src="Cuplikan layar 2026-09-07 144934.png" alt="Gerbang SMKN 2 Tembilahan" class="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-500">
-      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent flex items-end p-6">
-        <p class="text-lg font-semibold text-slate-200">Gerbang Utama SMKN 2 Tembilahan</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section Galeri Lingkungan SMKN 2 Tembilahan -->
-  <section id="galeri" class="py-20 bg-slate-800/40 border-y border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl font-bold mb-4">Lingkungan & Kegiatan SMKN 2 Tembilahan</h2>
-        <p class="text-slate-400">Dokumentasi lingkungan sekolah, area olahraga, dan kegiatan siswa</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Foto Udara Kawasan Sekolah -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:border-cyan-500/50 transition-all">
-          <img src="Cuplikan layar 2026-09-07 145059.png" alt="Tampilan Udara SMKN 2 Tembilahan" class="w-full h-56 object-cover">
-          <div class="p-4">
-            <h3 class="font-bold text-lg text-cyan-400">Kawasan Lingkungan Sekolah</h3>
-            <p class="text-slate-400 text-sm">Tampilan pemandangan udara kawasan SMKN 2 Tembilahan.</p>
-          </div>
-        </div>
-
-        <!-- Foto Lapangan -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:border-cyan-500/50 transition-all">
-          <img src="Cuplikan layar 2026-09-07 145146.png" alt="Lapangan Olahraga" class="w-full h-56 object-cover">
-          <div class="p-4">
-            <h3 class="font-bold text-lg text-cyan-400">Lapangan Upacara & Olahraga</h3>
-            <p class="text-slate-400 text-sm">Fasilitas kegiatan upacara bendera, olahraga, dan kumpul siswa.</p>
-          </div>
-        </div>
-
-        <!-- Foto Kegiatan Siswa -->
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:border-cyan-500/50 transition-all">
-          <img src="Cuplikan layar 2026-09-07 145122.png" alt="Kegiatan Siswa" class="w-full h-56 object-cover">
-          <div class="p-4">
-            <h3 class="font-bold text-lg text-cyan-400">Kegiatan & Upacara Sekolah</h3>
-            <p class="text-slate-400 text-sm">Dokumentasi barisan paskibra dan kegiatan peringatan di sekolah.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Laboratorium TKJ Section -->
-  <section id="fasilitas" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl font-bold mb-4">Laboratorium TKJ SMKN 2 Tembilahan</h2>
-      <p class="text-slate-400">Klik kartu laboratorium untuk melihat detail fasilitas prasarana di dalamnya</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-      <!-- Lab Jaringan -->
-      <div onclick="openModal('Laboratorium Jaringan & Server', 'Laboratorium utama untuk praktik routing, switching, dan konfigurasi Mikrotik.', ['30 Unit PC Praktikum High-Spec', 'RouterBoard Mikrotik RB951/RB750', 'Switch Managed Cisco 24 Port', 'Koneksi Internet Dedicated SMKN 2', 'Full AC & Proyektor Interactive'])" 
-           class="cursor-pointer bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden hover:scale-[1.02] hover:border-cyan-500 transition-all duration-300">
-        <div class="h-48 bg-slate-700 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80');">
-          <div class="w-full h-full bg-slate-900/50 flex items-center justify-center">
-            <i data-lucide="network" class="w-12 h-12 text-cyan-400"></i>
-          </div>
-        </div>
-        <div class="p-6">
-          <h3 class="text-xl font-bold mb-2">Labor Jaringan & Server</h3>
-          <p class="text-slate-400 text-sm mb-4">Praktik konfigurasi jaringan LAN, WAN, Wireless, dan Administrasi Server Linux/Windows.</p>
-          <span class="text-xs text-cyan-400 font-semibold flex items-center gap-1">
-            Klik Detail <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </span>
-        </div>
-      </div>
-
-      <!-- Lab Perakitan & Fiber Optic -->
-      <div onclick="openModal('Laboratorium Perakitan & Fiber Optic', 'Ruang praktik bongkar pasang komputer, perawatan PC, dan instalasi kabel Fiber Optic.', ['Set Tool Kit Perakitan Komputer Lengkap', 'Fusion Splicer & Cleaver Fiber Optic', 'OTDR & Optical Power Meter', 'LAN Tester & Tang Crimp Solder', 'Komponen Hardware & Rack Server Cadangan'])" 
-           class="cursor-pointer bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden hover:scale-[1.02] hover:border-cyan-500 transition-all duration-300">
-        <div class="h-48 bg-slate-700 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80');">
-          <div class="w-full h-full bg-slate-900/50 flex items-center justify-center">
-            <i data-lucide="wrench" class="w-12 h-12 text-blue-400"></i>
-          </div>
-        </div>
-        <div class="p-6">
-          <h3 class="text-xl font-bold mb-2">Labor Hardware & Fiber Optic</h3>
-          <p class="text-slate-400 text-sm mb-4">Tempat siswa merakit hardware PC, troubleshooting, serta penyambungan kabel Fiber Optic.</p>
-          <span class="text-xs text-cyan-400 font-semibold flex items-center gap-1">
-            Klik Detail <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </span>
-        </div>
-      </div>
-
-      <!-- Lab Software & Multimedia -->
-      <div onclick="openModal('Laboratorium Software & Desain', 'Pusat pembelajaran dasar komputer, desain grafis, dan pemrograman web.', ['32 Unit PC Core i5', 'Software Simulasi (Cisco Packet Tracer, GNS3)', 'Akses Server Lokal & Cloud Storage', 'Full Pendingin Ruangan (AC)', 'Audio System & Smart Board'])" 
-           class="cursor-pointer bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden hover:scale-[1.02] hover:border-cyan-500 transition-all duration-300">
-        <div class="h-48 bg-slate-700 flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80');">
-          <div class="w-full h-full bg-slate-900/50 flex items-center justify-center">
-            <i data-lucide="laptop" class="w-12 h-12 text-indigo-400"></i>
-          </div>
-        </div>
-        <div class="p-6">
-          <h3 class="text-xl font-bold mb-2">Labor Software & Aplikasi</h3>
-          <p class="text-slate-400 text-sm mb-4">Digunakan untuk praktikum dasar komputer, sistem operasi, serta pemrograman dasar.</p>
-          <span class="text-xs text-cyan-400 font-semibold flex items-center gap-1">
-            Klik Detail <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Siswa & Kelas Section -->
-  <section id="kelas" class="py-20 bg-slate-800/50 border-t border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold mb-4">Data Kelas TKJ SMKN 2 Tembilahan</h2>
-        <p class="text-slate-400">Pilih tombol kelas di bawah untuk melihat detail wali kelas dan jumlah siswa</p>
-      </div>
-
-      <!-- Tab Buttons Navigation -->
-      <div class="flex flex-wrap justify-center gap-3 mb-8">
-        <button id="btn-x-tkj1" onclick="switchClass('x-tkj1')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 text-sm">
-          10 TKJ 1 (28)
-        </button>
-        <button id="btn-x-tkj2" onclick="switchClass('x-tkj2')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
-          10 TKJ 2 (32)
-        </button>
-        <button id="btn-xi-tkj1" onclick="switchClass('xi-tkj1')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
-          11 TKJ 1 (30)
-        </button>
-        <button id="btn-xi-tkj2" onclick="switchClass('xi-tkj2')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
-          11 TKJ 2 (28)
-        </button>
-        <button id="btn-xii-tkj1" onclick="switchClass('xii-tkj1')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
-          12 TKJ 1 (34)
-        </button>
-        <button id="btn-xii-tkj2" onclick="switchClass('xii-tkj2')" class="px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm">
-          12 TKJ 2 (31)
-        </button>
-      </div>
-
-      <!-- Content 10 TKJ 1 -->
-      <div id="content-x-tkj1" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-6 gap-4">
-          <div>
-            <h3 class="text-2xl font-bold text-cyan-400">Kelas 10 TKJ 1</h3>
-            <p class="text-slate-400 text-sm">Tingkat: <span class="text-slate-200 font-semibold">Fase E / Kelas X</span></p>
-          </div>
-          <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
-            Jumlah Siswa: <span class="text-cyan-400">28 Siswa</span>
-          </div>
-        </div>
-        <p class="text-slate-300">Fokus Pembelajaran: Fondasi Dasar Informatika, Keselamatan Kerja (K3LH), serta Pengenalan Perangkat Jaringan Dasar.</p>
-      </div>
-
-      <!-- Content 10 TKJ 2 -->
-      <div id="content-x-tkj2" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-6 gap-4">
-          <div>
-            <h3 class="text-2xl font-bold text-cyan-400">Kelas 10 TKJ 2</h3>
-            <p class="text-slate-400 text-sm">Tingkat: <span class="text-slate-200 font-semibold">Fase E / Kelas X</span></p>
-          </div>
-          <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
-            Jumlah Siswa: <span class="text-cyan-400">32 Siswa</span>
-          </div>
-        </div>
-        <p class="text-slate-300">Fokus Pembelajaran: Dasar-dasar Perakitan PC, Pengenalan Perangkat Kabel LAN, serta Pemahaman Sistem Operasi.</p>
-      </div>
-
-      <!-- Content 11 TKJ 1 -->
-      <div id="content-xi-tkj1" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-6 gap-4">
-          <div>
-            <h3 class="text-2xl font-bold text-cyan-400">Kelas 11 TKJ 1</h3>
-            <p class="text-slate-400 text-sm">Wali Kelas: <span class="text-slate-200 font-semibold">Ririn Sugiarti, S.Pd</span></p>
-          </div>
-          <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
-            Jumlah Siswa: <span class="text-cyan-400">30 Orang</span>
-          </div>
-        </div>
-        <p class="text-slate-300">Fokus Peminatan: Administrasi Infrastruktur Jaringan (Mikrotik, Routing & Switching).</p>
-      </div>
-
-      <!-- Content 11 TKJ 2 -->
-      <div id="content-xi-tkj2" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-6 gap-4">
-          <div>
-            <h3 class="text-2xl font-bold text-indigo-400">Kelas 11 TKJ 2</h3>
-            <p class="text-slate-400 text-sm">Wali Kelas: <span class="text-slate-200 font-semibold">Moh. Roni</span></p>
-          </div>
-          <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
-            Jumlah Siswa: <span class="text-indigo-400">28 Orang</span>
-          </div>
-        </div>
-        <p class="text-slate-300">Fokus Peminatan: System Administrator, Pengelasan Fiber Optic & Keamanan Jaringan.</p>
-      </div>
-
-      <!-- Content 12 TKJ 1 -->
-      <div id="content-xii-tkj1" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-6 gap-4">
-          <div>
-            <h3 class="text-2xl font-bold text-emerald-400">Kelas 12 TKJ 1</h3>
-            <p class="text-slate-400 text-sm">Tingkat: <span class="text-slate-200 font-semibold">Tingkat Akhir / Persiapan PKL & UKK</span></p>
-          </div>
-          <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
-            Jumlah Siswa: <span class="text-emerald-400">34 Siswa</span>
-          </div>
-        </div>
-        <p class="text-slate-300">Fokus Pembelajaran: Uji Kompetensi Keahlian (UKK), Cloud Computing, dan Persiapan Praktek Kerja Lapangan (PKL).</p>
-      </div>
-
-      <!-- Content 12 TKJ 2 -->
-      <div id="content-xii-tkj2" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-6 gap-4">
-          <div>
-            <h3 class="text-2xl font-bold text-emerald-400">Kelas 12 TKJ 2</h3>
-            <p class="text-slate-400 text-sm">Tingkat: <span class="text-slate-200 font-semibold">Tingkat Akhir / Persiapan PKL & UKK</span></p>
-          </div>
-          <div class="px-4 py-2 bg-slate-800 rounded-lg text-sm font-semibold border border-slate-700">
-            Jumlah Siswa: <span class="text-emerald-400">31 Siswa</span>
-          </div>
-        </div>
-        <p class="text-slate-300">Fokus Pembelajaran: Administrasi System Linux Server Lanjut, Manajemen Wireless Enterprise, dan Project Tugas Akhir.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Modal Pop-up Ruangan -->
-  <div id="modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl">
-      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-      <h3 id="modal-title" class="text-2xl font-bold mb-2 text-cyan-400">Nama Laboratorium</h3>
-      <p id="modal-desc" class="text-slate-400 text-sm mb-4">Deskripsi...</p>
-      
-      <h4 class="font-semibold text-sm text-slate-200 mb-2">Fasilitas Utama:</h4>
-      <ul id="modal-list" class="space-y-2 mb-6 text-slate-300 text-sm"></ul>
-
-      <button onclick="closeModal()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl font-semibold border border-slate-700">
-        Tutup
-      </button>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="py-8 border-t border-slate-800 text-center text-slate-500 text-sm">
-    <p>&copy; 2026 Jurusan TKJ SMKN 2 Tembilahan. All rights reserved.</p>
-  </footer>
-
-  <script>
-    lucide.createIcons();
-
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function switchClass(target) {
-      const keys = ['x-tkj1', 'x-tkj2', 'xi-tkj1', 'xi-tkj2', 'xii-tkj1', 'xii-tkj2'];
-      
-      keys.forEach(k => {
-        const btn = document.getElementById(`btn-${k}`);
-        const content = document.getElementById(`content-${k}`);
-        
-        if (k === target) {
-          btn.className = "px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-cyan-500 text-slate-950 shadow-lg shadow-cyan-500/20 text-sm";
-          content.classList.remove('hidden');
-        } else {
-          btn.className = "px-4 py-2.5 rounded-xl font-semibold transition-all duration-300 bg-slate-800 text-slate-300 hover:bg-slate-700 text-sm";
-          content.classList.add('hidden');
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --primary: #0d6efd;
+            --primary-dark: #0a4b9c;
+            --accent: #00f2fe;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
-      });
-    }
 
-    function openModal(title, desc, items) {
-      document.getElementById('modal-title').innerText = title;
-      document.getElementById('modal-desc').innerText = desc;
-      
-      const listContainer = document.getElementById('modal-list');
-      listContainer.innerHTML = '';
-      
-      items.forEach(item => {
-        const li = document.createElement('li');
-        li.className = "flex items-center gap-2";
-        li.innerHTML = `<i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-400"></i> ${item}`;
-        listContainer.appendChild(li);
-      });
-      
-      lucide.createIcons();
-      document.getElementById('modal').classList.remove('hidden');
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    function closeModal() {
-      document.getElementById('modal').classList.add('hidden');
-    }
-  </script>
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Hero Header */
+        header {
+            background: linear-gradient(135deg, rgba(10, 75, 156, 0.95), rgba(0, 242, 254, 0.8)), 
+                        url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            color: var(--white);
+            padding: 4rem 1rem;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        header .logo-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.2rem;
+        }
+
+        /* Card Section Styling */
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            width: 50%;
+            height: 4px;
+            background: var(--accent);
+            position: absolute;
+            bottom: -8px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .about-text {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        /* Grid System Kelas */
+        .grid-classes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .class-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .class-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .class-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(13, 110, 253, 0.15);
+            border-color: transparent;
+        }
+
+        .class-card i {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .class-card h3 {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .class-card .badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: var(--primary-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Grid Gallery Gambar */
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            height: 220px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--text-dark);
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            color: var(--accent);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            header p {
+                font-size: 0.95rem;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Hero Section -->
+    <header>
+        <div class="logo-badge">SMKN 2 Tembilahan</div>
+        <h1>Teknik Komputer & Jaringan</h1>
+        <p>Mencetak Generasi Ahli Jaringan, Sistem Komputer, dan Administrator IT Berdaya Saing.</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- Tentang Jurusan -->
+        <section class="card">
+            <div class="section-title">
+                <h2>Profil Jurusan</h2>
+            </div>
+            <p class="about-text">
+                Program Keahlian Teknik Komputer dan Jaringan (TKJ) di SMKN 2 Tembilahan memfokuskan siswa pada penguasaan teknologi informasi masa kini. Pembelajaran mencakup instalasi jaringan komputer (LAN/WAN/MikroTik), perakitan hardware, administrasi server, keamanan siber, hingga pemrograman dasar dan teknologi cloud.
+            </p>
+        </section>
+
+        <!-- Galeri Gambar TKJ -->
+        <section class="card">
+            <div class="section-title">
+                <h2>Galeri Kegiatan TKJ</h2>
+            </div>
+            <div class="grid-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" alt="Praktikum Jaringan">
+                    <div class="gallery-overlay">
+                        <p>Praktikum Jaringan & Server</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=600&q=80" alt="Hardware Komputer">
+                    <div class="gallery-overlay">
+                        <p>Perakitan & Perawatan Hardware</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Lab Komputer">
+                    <div class="gallery-overlay">
+                        <p>Laboratorium Komputer TKJ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Kelas dan Siswa -->
+        <section class="card">
+            <div class="section-title">
+                <h2>Data Siswa Per Kelas</h2>
+            </div>
+            
+            <div class="grid-classes">
+                <!-- Kelas 10 TKJ 1 -->
+                <div class="class-card">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <h3>Kelas X TKJ 1</h3>
+                    <div class="badge">33 Siswa</div>
+                </div>
+
+                <!-- Kelas 10 TKJ 2 -->
+                <div class="class-card">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <h3>Kelas X TKJ 2</h3>
+                    <div class="badge">29 Siswa</div>
+                </div>
+
+                <!-- Kelas 11 TKJ 1 -->
+                <div class="class-card">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>Kelas XI TKJ 1</h3>
+                    <div class="badge">27 Siswa</div>
+                </div>
+
+                <!-- Kelas 11 TKJ 2 -->
+                <div class="class-card">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>Kelas XI TKJ 2</h3>
+                    <div class="badge">30 Siswa</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; SMKN 2 Tembilahan — <span>Teknik Komputer & Jaringan</span></p>
+    </footer>
+
 </body>
 </html>
