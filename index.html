@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* CSS Reset & Variables */
         :root {
             --primary: #0d6efd;
             --primary-dark: #0a4b9c;
             --accent: #00f2fe;
-            --bg-light: #f8fafc;
+            --bg-light: #f4f7fa;
             --text-dark: #1e293b;
             --text-muted: #64748b;
             --white: #ffffff;
@@ -34,12 +33,12 @@
             line-height: 1.6;
         }
 
-        /* Hero Header */
+        /* Header / Hero Section */
         header {
-            background: linear-gradient(135deg, rgba(10, 75, 156, 0.95), rgba(0, 242, 254, 0.8)), 
+            background: linear-gradient(135deg, rgba(10, 75, 156, 0.92), rgba(0, 242, 254, 0.75)), 
                         url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
             color: var(--white);
-            padding: 4rem 1rem;
+            padding: 4.5rem 1rem;
             text-align: center;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
@@ -62,14 +61,13 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         header p {
             font-size: 1.1rem;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         /* Container */
@@ -79,7 +77,7 @@
             padding: 0 1.2rem;
         }
 
-        /* Card Section Styling */
+        /* Section Titles */
         .section-title {
             text-align: center;
             margin-bottom: 2rem;
@@ -111,28 +109,22 @@
             box-shadow: var(--shadow);
         }
 
-        .about-text {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            text-align: justify;
-        }
-
         /* Grid System Kelas */
         .grid-classes {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.5rem;
         }
 
         .class-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 1.5rem;
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
+            cursor: pointer;
         }
 
         .class-card::before {
@@ -143,12 +135,14 @@
             width: 100%;
             height: 5px;
             background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
         }
 
         .class-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 20px rgba(13, 110, 253, 0.15);
-            border-color: transparent;
+            border-color: var(--primary);
         }
 
         .class-card i {
@@ -173,7 +167,46 @@
             font-weight: 600;
         }
 
-        /* Grid Gallery Gambar */
+        .click-hint {
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Feature List Interactive */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .feature-box:hover {
+            background: #eef6ff;
+            transform: translateY(-4px);
+        }
+
+        .feature-box h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-box p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Grid Gallery Gambar (Bisa Dipencet) */
         .grid-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -186,6 +219,7 @@
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             height: 220px;
+            cursor: pointer;
         }
 
         .gallery-item img {
@@ -204,15 +238,72 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
             color: white;
             padding: 1rem;
             text-align: center;
         }
 
-        .gallery-overlay p {
-            font-size: 0.9rem;
-            font-weight: 600;
+        /* Modal / Pop-up Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .close-btn:hover {
+            color: var(--text-dark);
+        }
+
+        .modal-header {
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-header h3 {
+            color: var(--primary-dark);
+        }
+
+        .modal-body p {
+            margin-bottom: 0.8rem;
+            font-size: 0.98rem;
+            color: #334155;
+            line-height: 1.6;
         }
 
         /* Footer */
@@ -228,23 +319,16 @@
             color: var(--accent);
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8rem;
-            }
-            header p {
-                font-size: 0.95rem;
-            }
-            .card {
-                padding: 1.2rem;
-            }
+            header h1 { font-size: 1.8rem; }
+            header p { font-size: 0.95rem; }
+            .card { padding: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header / Hero Section -->
+    <!-- Header Section -->
     <header>
         <div class="logo-badge">SMKN 2 Tembilahan</div>
         <h1>Teknik Komputer & Jaringan</h1>
@@ -253,35 +337,94 @@
 
     <div class="container">
         
-        <!-- Tentang Jurusan -->
+        <!-- Profil Jurusan -->
         <section class="card">
             <div class="section-title">
-                <h2>Profil Jurusan</h2>
+                <h2>Profil Jurusan TKJ</h2>
             </div>
-            <p class="about-text">
-                Program Keahlian Teknik Komputer dan Jaringan (TKJ) di SMKN 2 Tembilahan memfokuskan siswa pada penguasaan teknologi informasi masa kini. Pembelajaran mencakup instalasi jaringan komputer (LAN/WAN/MikroTik), perakitan hardware, administrasi server, keamanan siber, hingga pemrograman dasar dan teknologi cloud.
+            <p style="color: var(--text-muted); text-align: justify;">
+                Teknik Komputer dan Jaringan (TKJ) SMKN 2 Tembilahan merupakan salah satu program keahlian unggulan yang membekali peserta didik dengan pengetahuan, keterampilan, dan sikap profesional di bidang Teknologi Informasi dan Komunikasi.
             </p>
         </section>
 
-        <!-- Galeri Gambar TKJ -->
+        <!-- Data Kelas TKJ (Bisa Dipencet) -->
         <section class="card">
             <div class="section-title">
-                <h2>Galeri Kegiatan TKJ</h2>
+                <h2>Data Lokal Kelas TKJ</h2>
+            </div>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                <i class="fa-solid fa-hand-pointer"></i> Klik kartu mana saja untuk melihat info lengkap.
+            </p>
+            
+            <div class="grid-classes">
+                <div class="class-card" onclick="showInfo('Kelas X TKJ 1', '<p><strong>Wali Kelas:</strong> Andri Mahendra</p><p><strong>Jumlah Siswa:</strong> 33 Siswa</p><p><strong>Ruang Kelas:</strong> Gedung B Utama</p>')">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <h3>Kelas X TKJ 1</h3>
+                    <div class="badge">33 Siswa</div>
+                    <div class="click-hint">Lihat Detail <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="class-card" onclick="showInfo('Kelas X TKJ 2', '<p><strong>Wali Kelas:</strong> Belum Diatur / Konfirmasi</p><p><strong>Jumlah Siswa:</strong> 29 Siswa</p><p><strong>Ruang Kelas:</strong> Gedung B Utama</p>')">
+                    <i class="fa-solid fa-users-rectangle"></i>
+                    <h3>Kelas X TKJ 2</h3>
+                    <div class="badge">29 Siswa</div>
+                    <div class="click-hint">Lihat Detail <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="class-card" onclick="showInfo('Kelas XI TKJ 1', '<p><strong>Wali Kelas:</strong> Ririn Sugiarti</p><p><strong>Jumlah Siswa:</strong> 27 Siswa</p><p><strong>Ruang Kelas:</strong> Gedung Laboratorium TKJ</p>')">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>Kelas XI TKJ 1</h3>
+                    <div class="badge">27 Siswa</div>
+                    <div class="click-hint">Lihat Detail <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="class-card" onclick="showInfo('Kelas XI TKJ 2', '<p><strong>Wali Kelas:</strong> Moh. Roni</p><p><strong>Jumlah Siswa:</strong> 30 Siswa</p><p><strong>Ruang Kelas:</strong> Gedung Laboratorium TKJ</p>')">
+                    <i class="fa-solid fa-laptop-code"></i>
+                    <h3>Kelas XI TKJ 2</h3>
+                    <div class="badge">30 Siswa</div>
+                    <div class="click-hint">Lihat Detail <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="class-card" onclick="showInfo('Kelas XII TKJ 1', '<p><strong>Wali Kelas:</strong> Belum Diatur / Konfirmasi</p><p><strong>Jumlah Siswa:</strong> 34 Siswa</p><p><strong>Ruang Kelas:</strong> Gedung C TKJ</p>')">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h3>Kelas XII TKJ 1</h3>
+                    <div class="badge">34 Siswa</div>
+                    <div class="click-hint">Lihat Detail <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+
+                <div class="class-card" onclick="showInfo('Kelas XII TKJ 2', '<p><strong>Wali Kelas:</strong> Belum Diatur / Konfirmasi</p><p><strong>Jumlah Siswa:</strong> 32 Siswa</p><p><strong>Ruang Kelas:</strong> Gedung C TKJ</p>')">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <h3>Kelas XII TKJ 2</h3>
+                    <div class="badge">32 Siswa</div>
+                    <div class="click-hint">Lihat Detail <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeri Kegiatan & Fasilitas (Bisa Dipencet) -->
+        <section class="card">
+            <div class="section-title">
+                <h2>Galeri & Fasilitas TKJ</h2>
             </div>
             <div class="grid-gallery">
-                <div class="gallery-item">
+                <!-- Praktikum Jaringan -->
+                <div class="gallery-item" onclick="showInfo('Praktikum Jaringan & Server', '<p><strong>Deskripsi Praktikum:</strong> Siswa diajarkan cara melakukan pengabelan (Crimping kabel UTP Cat6), setting Router MikroTik, membuat VLAN, serta mengonfigurasi Server Linux/Windows.</p><p><strong>Alat yang Digunakan:</strong> Tang Crimping, Cable Tester, Router Board Mikrotik, Switch Hub, Fiber Optic Splicer.</p>')">
                     <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" alt="Praktikum Jaringan">
                     <div class="gallery-overlay">
                         <p>Praktikum Jaringan & Server</p>
                     </div>
                 </div>
-                <div class="gallery-item">
+
+                <!-- Perakitan Hardware -->
+                <div class="gallery-item" onclick="showInfo('Perakitan & Perawatan Hardware', '<p><strong>Deskripsi Praktikum:</strong> Siswa mempelajari pembongkaran & pemasangan komponen PC, diagnosa kerusakan motherboard, instalasi Sistem Operasi (Windows/Linux), dan pembersihan perangkat keras.</p><p><strong>Peralatan:</strong> Obeng Set, Gelang Antistatis, Thermal Paste, Multitester.</p>')">
                     <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=600&q=80" alt="Hardware Komputer">
                     <div class="gallery-overlay">
                         <p>Perakitan & Perawatan Hardware</p>
                     </div>
                 </div>
-                <div class="gallery-item">
+
+                <!-- Laboratorium Komputer -->
+                <div class="gallery-item" onclick="showInfo('Laboratorium Komputer TKJ', '<p><strong>Fasilitas Lab:</strong> Dilengkapi dengan unit PC client modern, koneksi Wi-Fi Dedicated Full Speed, AC, Proyektor, serta Rack Server dedicated untuk simulasi Uji Kompetensi Keahlian (UKK).</p><p><strong>Kapasitas:</strong> 36 Unit Komputer Siap Pakai.</p>')">
                     <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80" alt="Lab Komputer">
                     <div class="gallery-overlay">
                         <p>Laboratorium Komputer TKJ</p>
@@ -290,43 +433,47 @@
             </div>
         </section>
 
-        <!-- Data Kelas dan Siswa -->
+        <!-- Materi Keahlian (Bisa Dipencet) -->
         <section class="card">
             <div class="section-title">
-                <h2>Data Siswa Per Kelas</h2>
+                <h2>Materi & Keahlian Pembelajaran</h2>
             </div>
-            
-            <div class="grid-classes">
-                <!-- Kelas 10 TKJ 1 -->
-                <div class="class-card">
-                    <i class="fa-solid fa-users-rectangle"></i>
-                    <h3>Kelas X TKJ 1</h3>
-                    <div class="badge">33 Siswa</div>
+            <div class="features-grid">
+                <div class="feature-box" onclick="showInfo('Administrasi Server', '<p>Mempelajari pengelolaan server berbasis Linux (Debian/Ubuntu) dan Windows Server. Meliputi instalasi Web Server (Apache/Nginx), Database (MySQL), Mail Server, DNS Server, dan FTP Server.</p>')">
+                    <h4><i class="fa-solid fa-server"></i> Administrasi Server</h4>
+                    <p>Klik untuk informasi detail software & materi yang dipelajari.</p>
                 </div>
 
-                <!-- Kelas 10 TKJ 2 -->
-                <div class="class-card">
-                    <i class="fa-solid fa-users-rectangle"></i>
-                    <h3>Kelas X TKJ 2</h3>
-                    <div class="badge">29 Siswa</div>
+                <div class="feature-box" onclick="showInfo('Jaringan Komputer', '<p>Merancang topologi jaringan lokal hingga skala luas. Mempelajari routing dinamik/statis, switching, manajemen bandwidth, Wi-Fi Controller, dan penyambungan Fiber Optic.</p>')">
+                    <h4><i class="fa-solid fa-wifi"></i> Jaringan Komputer</h4>
+                    <p>Klik untuk informasi detail software & materi yang dipelajari.</p>
                 </div>
 
-                <!-- Kelas 11 TKJ 1 -->
-                <div class="class-card">
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <h3>Kelas XI TKJ 1</h3>
-                    <div class="badge">27 Siswa</div>
+                <div class="feature-box" onclick="showInfo('Hardware & Perawatan', '<p>Pemahaman mendalam tentang komponen komputer, perakitan PC, troubleshooting error bios/blue screen, serta perawatan berkala pada laboratorium komputer sekolah.</p>')">
+                    <h4><i class="fa-solid fa-microchip"></i> Hardware & Perawatan</h4>
+                    <p>Klik untuk informasi detail software & materi yang dipelajari.</p>
                 </div>
 
-                <!-- Kelas 11 TKJ 2 -->
-                <div class="class-card">
-                    <i class="fa-solid fa-laptop-code"></i>
-                    <h3>Kelas XI TKJ 2</h3>
-                    <div class="badge">30 Siswa</div>
+                <div class="feature-box" onclick="showInfo('Keamanan Siber (Cyber Security)', '<p>Pembelajaran dasar-dasar proteksi jaringan, enkripsi data, penanganan virus/malware, konfigurasi Firewall MikroTik, dan sistem pengawasan lalu lintas data (Wireshark).</p>')">
+                    <h4><i class="fa-solid fa-shield-halved"></i> Keamanan Jaringan</h4>
+                    <p>Klik untuk informasi detail software & materi yang dipelajari.</p>
                 </div>
             </div>
         </section>
 
+    </div>
+
+    <!-- General Pop-up Modal -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <h3 id="modalTitle">Informasi</h3>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Data akan dimasukkan secara dinamis lewat JS -->
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -334,5 +481,25 @@
         <p>&copy; SMKN 2 Tembilahan — <span>Teknik Komputer & Jaringan</span></p>
     </footer>
 
+    <!-- JavaScript Pop-up Dinamis -->
+    <script>
+        function showInfo(title, content) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerHTML = content;
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        // Tutup pop-up jika mengklik di luar kotak modal
+        window.onclick = function(event) {
+            var modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
