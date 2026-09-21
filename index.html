@@ -155,7 +155,7 @@
             border-radius: 2px;
         }
 
-        /* About / Banner Image Section */
+        /* About Section */
         .about-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -173,6 +173,55 @@
             font-size: 1.8rem;
             margin-bottom: 15px;
             color: var(--dark-color);
+        }
+
+        /* Interactive Grid Cards (Modul & Peraturan) */
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .info-card {
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #eee;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            border-color: var(--primary-color);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .click-hint {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: 600;
         }
 
         /* Classes Section */
@@ -228,7 +277,7 @@
             margin-top: 10px;
         }
 
-        /* Contact & Buttons Section */
+        /* Contact Section */
         .contact-section {
             background: #fff;
             border-radius: 15px;
@@ -278,6 +327,68 @@
             transform: translateY(-3px);
         }
 
+        /* Modal / Pop-Up System */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            animation: fadeIn 0.3s ease-in-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .modal-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .modal-content p, .modal-content ul {
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .modal-content ul {
+            padding-left: 20px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #888;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* Footer */
         footer {
             background: var(--dark-color);
@@ -287,7 +398,6 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
@@ -312,13 +422,14 @@
 
     <!-- Header / Navbar -->
     <nav class="navbar">
-        <div class="logo">
+        <div class="logosmkn.jpg">
             <i class="fa-solid fa-network-wired"></i>
             <span>TKJ</span> SMKN 2 Tembilahan
         </div>
         <ul class="nav-links">
             <li><a href="#home">Beranda</a></li>
-            <li><a href="#about">Tentang</a></li>
+            <li><a href="#materi">Pengetahuan TKJ</a></li>
+            <li><a href="#peraturan">Peraturan</a></li>
             <li><a href="#kelas">Daftar Kelas</a></li>
             <li><a href="#kontak">Kontak</a></li>
         </ul>
@@ -336,8 +447,7 @@
     <section id="about">
         <div class="about-container">
             <div class="about-img">
-                <!-- Foto Praktikum / Laboratorium TKJ -->
-                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Praktikum Komputer TKJ SMKN 2 Tembilahan">
+                <img src="postersmkn.jpg" alt="Praktikum Komputer TKJ SMKN 2 Tembilahan">
             </div>
             <div class="about-text">
                 <h3>Membangun Masa Depan Teknologi Informasi</h3>
@@ -346,14 +456,78 @@
         </div>
     </section>
 
-    <!-- Section Daftar Kelas -->
-    <section id="kelas">
+    <!-- Section Pengetahuan & Modul TKJ (Baru) -->
+    <section id="materi" style="background-color: #fff;">
+        <div class="section-title">
+            <h2>Pengetahuan & Kompetensi TKJ</h2>
+        </div>
+        <div class="interactive-grid">
+            <div class="info-card" onclick="openModal('materi1')">
+                <i class="fa-solid fa-server"></i>
+                <h3>Jaringan Komputer & MikroTik</h3>
+                <p>Pengoperasian router, pembuatan IP Address, Subnetting, dan routing LAN/WAN.</p>
+                <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk detail</span>
+            </div>
+
+            <div class="info-card" onclick="openModal('materi2')">
+                <i class="fa-solid fa-desktop"></i>
+                <h3>Perakitan & Sektor Komputer</h3>
+                <p>Troubleshooting hardware, pemeliharaan OS, dan instalasi software.</p>
+                <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk detail</span>
+            </div>
+
+            <div class="info-card" onclick="openModal('materi3')">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Keamanan Jaringan (Cyber Security)</h3>
+                <p>Pengamanan port, firewall, pencegahan serangan cyber, dan VPN.</p>
+                <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk detail</span>
+            </div>
+
+            <div class="info-card" onclick="openModal('materi4')">
+                <i class="fa-solid fa-cloud"></i>
+                <h3>Administrasi Server</h3>
+                <p>Pengelolaan Web Server, Database Server, DNS Server, dan Cloud Storage.</p>
+                <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk detail</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Peraturan & Kedisiplinan (Baru) -->
+    <section id="peraturan">
+        <div class="section-title">
+            <h2>Peraturan & Kedisiplinan TKJ</h2>
+        </div>
+        <div class="interactive-grid">
+            <div class="info-card" onclick="openModal('rule1')">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h3>Tata Tertib Laboratorium</h3>
+                <p>Aturan keselamatan kerja, penggunaan komputer, dan kebersihan lab.</p>
+                <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk detail</span>
+            </div>
+
+            <div class="info-card" onclick="openModal('rule2')">
+                <i class="fa-solid fa-user-check"></i>
+                <h3>Kedisiplinan & Kehadiran</h3>
+                <p>Ketentuan ketepatan waktu, izin, dan persentase minimal kehadiran.</p>
+                <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk detail</span>
+            </div>
+
+            <div class="info-card" onclick="openModal('rule3')">
+                <i class="fa-solid fa-shirt"></i>
+                <h3>Atribut & Seragam Jurusan</h3>
+                <p>Standar pakaian praktik TKJ dan kerapian penampilan siswa.</p>
+                <span class="click-hint"><i class="fa-solid fa-hand-pointer"></i> Klik untuk detail</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Daftar Kelas (Tetap Sama) -->
+    <section id="kelas" style="background-color: #fff;">
         <div class="section-title">
             <h2>Data Kelas & Siswa</h2>
         </div>
         <div class="classes-grid">
             
-            <!-- Kelas 10 TKJ 1 -->
             <div class="class-card">
                 <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=500&q=80" alt="Siswa 10 TKJ 1" class="class-card-img">
                 <div class="class-info">
@@ -363,7 +537,6 @@
                 </div>
             </div>
 
-            <!-- Kelas 10 TKJ 2 -->
             <div class="class-card">
                 <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=500&q=80" alt="Siswa 10 TKJ 2" class="class-card-img">
                 <div class="class-info">
@@ -373,7 +546,6 @@
                 </div>
             </div>
 
-            <!-- Kelas 11 TKJ 1 -->
             <div class="class-card">
                 <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=500&q=80" alt="Siswa 11 TKJ 1" class="class-card-img">
                 <div class="class-info">
@@ -383,7 +555,6 @@
                 </div>
             </div>
 
-            <!-- Kelas 11 TKJ 2 -->
             <div class="class-card">
                 <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=500&q=80" alt="Siswa 11 TKJ 2" class="class-card-img">
                 <div class="class-info">
@@ -393,7 +564,6 @@
                 </div>
             </div>
 
-            <!-- Kelas 12 TKJ 1 -->
             <div class="class-card">
                 <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=500&q=80" alt="Siswa 12 TKJ 1" class="class-card-img">
                 <div class="class-info">
@@ -406,7 +576,7 @@
         </div>
     </section>
 
-    <!-- Section Kontak & Media Sosial -->
+    <!-- Section Kontak (Tetap Sama) -->
     <section id="kontak">
         <div class="contact-section">
             <div class="section-title">
@@ -415,12 +585,10 @@
             <p>Punya pertanyaan seputar Jurusan TKJ SMKN 2 Tembilahan? Silakan hubungi kami melalui media di bawah ini:</p>
             
             <div class="social-buttons">
-                <!-- Tombol WhatsApp -->
                 <a href="https://wa.me/6285167874665" target="_blank" class="btn-social btn-wa">
                     <i class="fa-brands fa-whatsapp fa-xl"></i> WhatsApp Us
                 </a>
                 
-                <!-- Tombol Instagram -->
                 <a href="https://instagram.com/official.smkn2tembilahan" target="_blank" class="btn-social btn-ig">
                     <i class="fa-brands fa-instagram fa-xl"></i> Instagram
                 </a>
@@ -428,10 +596,111 @@
         </div>
     </section>
 
+    <!-- Pop-Up Modal Container -->
+    <div class="modal" id="modalBox">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">Judul Pengetahuan</h3>
+            <div id="modalBody">
+                <!-- Konten dinamis akan masuk ke sini via JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 TKJ SMKN 2 Tembilahan. All Rights Reserved.</p>
     </footer>
+
+    <!-- Script JavaScript Interaktif Modal -->
+    <script>
+        const modalData = {
+            materi1: {
+                title: "Jaringan Komputer & MikroTik",
+                content: `<p>Materi ini mencakup dasar hingga tingkat lanjut dalam membangun arsitektur jaringan lokal maupun luas.</p>
+                          <ul>
+                            <li><strong>Subnetting & IP Addressing:</strong> Perhitungan IPv4 dan IPv6 secara efisien.</li>
+                            <li><strong>Konfigurasi Router MikroTik:</strong> Bandwidth management, Firewall, dan Hotspot Server.</li>
+                            <li><strong>Pengkabelan:</strong> Crimping UTP (Straight & Cross) serta instalasi Fiber Optic (Splicing).</li>
+                          </ul>`
+            },
+            materi2: {
+                title: "Perakitan & Sektor Komputer",
+                content: `<p>Siswa dilatih untuk memahami seluruh komponen perangkat keras komputer dari nol.</p>
+                          <ul>
+                            <li><strong>Hardware Assembly:</strong> Memilih komponen kompatibel dan merakit unit PC.</li>
+                            <li><strong>Troubleshooting:</strong> Mendiagnosis kerusakan komponen (RAM, Motherboard, Power Supply).</li>
+                            <li><strong>Instalasi Sistem:</strong> Pemasangan OS Windows/Linux dan drivet pendukung.</li>
+                          </ul>`
+            },
+            materi3: {
+                title: "Keamanan Jaringan (Cyber Security)",
+                content: `<p>Memahami konsep perlindungan data dan pencegahan intrusi pada infrastruktur jaringan.</p>
+                          <ul>
+                            <li><strong>Firewall Configuration:</strong> Filtering port berbahaya dan pemblokiran situs.</li>
+                            <li><strong>VPN (Virtual Private Network):</strong> Mengamankan jalur komunikasi data antar cabang.</li>
+                            <li><strong>Monitoring Jaringan:</strong> Menggunakan tool analisis trafik seperti Wireshark.</li>
+                          </ul>`
+            },
+            materi4: {
+                title: "Administrasi Server",
+                content: `<p>Pelatihan pengelolaan sistem operasi server berbasis Linux (Debian/Ubuntu) dan Windows Server.</p>
+                          <ul>
+                            <li><strong>Web & Domain Server:</strong> Konfigurasi Apache/Nginx, DNS, dan DHCP Server.</li>
+                            <li><strong>Database Management:</strong> Pengelolaan MySQL dan PostgreSQL.</li>
+                            <li><strong>Cloud & Virtualisasi:</strong> Penggunaan Proxmox dan VMware untuk sistem server terpusat.</li>
+                          </ul>`
+            },
+            rule1: {
+                title: "Tata Tertib Laboratorium TKJ",
+                content: `<ul>
+                            <li>Dilarang membawa makanan dan minuman ke dalam area laboratorium komputer.</li>
+                            <li>Wajib mematikan (shutdown) komputer sesuai prosedur setelah jam praktik selesai.</li>
+                            <li>Dilarang mengubah atau merusak konfigurasi perangkat keras tanpa izin guru pembimbing.</li>
+                            <li>Menjaga kebersihan meja dan merapikan kembali kabel serta kursi laboratorium.</li>
+                          </ul>`
+            },
+            rule2: {
+                title: "Kedisiplinan & Kehadiran Siswa",
+                content: `<ul>
+                            <li>Siswa wajib hadir tepat waktu sebelum bel masuk dibunyikan.</li>
+                            <li>Toleransi keterlambatan maksimal 10 menit dengan surat izin piket.</li>
+                            <li>Persentase minimal kehadiran untuk mengikuti Ujian Praktik TKJ adalah 85%.</li>
+                            <li>Setiap ketidakhadiran harus menyertakan surat izin resmi dari orang tua/dokter.</li>
+                          </ul>`
+            },
+            rule3: {
+                title: "Atribut & Seragam Jurusan TKJ",
+                content: `<ul>
+                            <li>Wajib mengenakan baju wearpack/praktik khas TKJ SMKN 2 Tembilahan saat jam laboratorium.</li>
+                            <li>Sepatu wajib berwarna hitam tertutup (sepatu keselamatan/kets standar sekolah).</li>
+                            <li>Rambut siswa laki-laki harus rapi (maksimal ukuran 3-2-1 cm).</li>
+                            <li>Gunakan kartu identitas (ID Card) siswa selama berada di lingkungan sekolah.</li>
+                          </ul>`
+            }
+        };
+
+        function openModal(key) {
+            const data = modalData[key];
+            if (data) {
+                document.getElementById('modalTitle').innerText = data.title;
+                document.getElementById('modalBody').innerHTML = data.content;
+                document.getElementById('modalBox').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modalBox').style.display = 'none';
+        }
+
+        // Tutup modal jika mengklik luar area box
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalBox');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
