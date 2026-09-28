@@ -20,14 +20,22 @@
         :root {
             --primary-color: #0d6efd;
             --secondary-color: #0b5ed7;
-            --dark-color: #1a1d20;
-            --light-color: #f8f9fa;
+            --dark-color: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --light-text: #f8fafc;
+            --muted-text: #94a3b8;
             --accent-color: #00f2fe;
         }
 
+        /* Latar Belakang Gelap Motif Grid Cyber Tech */
         body {
-            background-color: #f4f6f9;
-            color: #333;
+            background-color: #0b0f19;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--light-text);
             line-height: 1.6;
         }
 
@@ -37,12 +45,14 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.2rem 8%;
-            background: rgba(26, 29, 32, 0.95);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border-bottom: 1px solid var(--card-border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         .logo {
@@ -55,7 +65,7 @@
         }
 
         .logo span {
-            color: var(--primary-color);
+            color: var(--accent-color);
         }
 
         .nav-links {
@@ -65,7 +75,7 @@
         }
 
         .nav-links a {
-            color: #fff;
+            color: var(--light-text);
             text-decoration: none;
             font-weight: 500;
             transition: 0.3s;
@@ -75,10 +85,10 @@
             color: var(--accent-color);
         }
 
-        /* Hero Section */
+        /* Hero Section dengan Background Pemandangan */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+            background: linear-gradient(rgba(11, 15, 25, 0.6), rgba(11, 15, 25, 0.9)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -92,21 +102,22 @@
         .hero h1 {
             font-size: 2.8rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 0 10px rgba(0,242,254,0.3);
         }
 
         .hero h2 {
             font-size: 1.5rem;
             color: var(--accent-color);
             margin-bottom: 20px;
-            font-weight: 400;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .hero p {
             max-width: 600px;
             margin-bottom: 30px;
             font-size: 1rem;
-            color: #ddd;
+            color: var(--muted-text);
         }
 
         .btn-cta {
@@ -118,12 +129,13 @@
             border-radius: 30px;
             font-weight: 600;
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4);
+            box-shadow: 0 0 15px rgba(13, 110, 253, 0.5);
         }
 
         .btn-cta:hover {
             background: var(--secondary-color);
             transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
         }
 
         /* General Section Styling */
@@ -138,7 +150,7 @@
 
         .section-title h2 {
             font-size: 2.2rem;
-            color: var(--dark-color);
+            color: var(--light-text);
             position: relative;
             display: inline-block;
             padding-bottom: 10px;
@@ -149,10 +161,11 @@
             position: absolute;
             width: 50%;
             height: 4px;
-            background: var(--primary-color);
+            background: var(--accent-color);
             bottom: 0;
             left: 25%;
             border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent-color);
         }
 
         /* About Section */
@@ -166,13 +179,18 @@
         .about-img img {
             width: 100%;
             border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid var(--card-border);
         }
 
         .about-text h3 {
             font-size: 1.8rem;
             margin-bottom: 15px;
-            color: var(--dark-color);
+            color: var(--light-text);
+        }
+
+        .about-text p {
+            color: var(--muted-text);
         }
 
         /* Interactive Grid Cards (Modul & Peraturan) */
@@ -183,44 +201,84 @@
         }
 
         .info-card {
-            background: #fff;
+            background: var(--card-bg);
             padding: 30px 20px;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
-            border: 1px solid #eee;
+            border: 1px solid var(--card-border);
         }
 
         .info-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-            border-color: var(--primary-color);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.2);
+            border-color: var(--accent-color);
         }
 
         .info-card i {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--accent-color);
             margin-bottom: 15px;
         }
 
         .info-card h3 {
             font-size: 1.2rem;
             margin-bottom: 10px;
-            color: var(--dark-color);
+            color: var(--light-text);
         }
 
         .info-card p {
             font-size: 0.9rem;
-            color: #666;
+            color: var(--muted-text);
         }
 
         .click-hint {
             display: inline-block;
             margin-top: 15px;
             font-size: 0.8rem;
-            color: var(--primary-color);
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Album Section Styling */
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .album-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            height: 220px;
+            border: 1px solid var(--card-border);
+        }
+
+        .album-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .album-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .album-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(15, 23, 42, 0.95));
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.95rem;
             font-weight: 600;
         }
 
@@ -232,18 +290,20 @@
         }
 
         .class-card {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             transition: 0.3s;
             text-align: center;
+            border: 1px solid var(--card-border);
             border-top: 4px solid var(--primary-color);
         }
 
         .class-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(13, 110, 253, 0.3);
+            border-top-color: var(--accent-color);
         }
 
         .class-card-img {
@@ -259,18 +319,19 @@
         .class-info h3 {
             font-size: 1.3rem;
             margin-bottom: 8px;
-            color: var(--dark-color);
+            color: var(--light-text);
         }
 
         .class-info p {
-            color: #666;
+            color: var(--muted-text);
             font-size: 0.95rem;
         }
 
         .badge {
             display: inline-block;
-            background: #e7f1ff;
-            color: var(--primary-color);
+            background: rgba(13, 110, 253, 0.2);
+            color: var(--accent-color);
+            border: 1px solid var(--primary-color);
             padding: 5px 15px;
             border-radius: 20px;
             font-weight: 600;
@@ -279,11 +340,16 @@
 
         /* Contact Section */
         .contact-section {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             text-align: center;
             padding: 60px 20px;
+        }
+
+        .contact-section p {
+            color: var(--muted-text);
         }
 
         .social-buttons {
@@ -335,7 +401,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -343,24 +410,26 @@
         }
 
         .modal-content {
-            background: #fff;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 30px;
             border-radius: 12px;
             max-width: 600px;
             width: 100%;
             position: relative;
             animation: fadeIn 0.3s ease-in-out;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: var(--light-text);
         }
 
         .modal-content h3 {
-            color: var(--primary-color);
+            color: var(--accent-color);
             margin-bottom: 15px;
             font-size: 1.5rem;
         }
 
         .modal-content p, .modal-content ul {
-            color: #444;
+            color: var(--muted-text);
             font-size: 0.95rem;
             line-height: 1.8;
             margin-bottom: 15px;
@@ -370,18 +439,22 @@
             padding-left: 20px;
         }
 
+        .modal-content strong {
+            color: var(--light-text);
+        }
+
         .close-btn {
             position: absolute;
             top: 15px;
             right: 20px;
             font-size: 1.8rem;
             cursor: pointer;
-            color: #888;
+            color: var(--muted-text);
             transition: 0.2s;
         }
 
         .close-btn:hover {
-            color: #000;
+            color: #fff;
         }
 
         @keyframes fadeIn {
@@ -391,11 +464,12 @@
 
         /* Footer */
         footer {
-            background: var(--dark-color);
-            color: #aaa;
+            background: #070a12;
+            color: var(--muted-text);
             text-align: center;
             padding: 25px;
             font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
         }
 
         @media (max-width: 768px) {
@@ -422,7 +496,7 @@
 
     <!-- Header / Navbar -->
     <nav class="navbar">
-        <div class="logosmkn.jpg">
+        <div class="logo">
             <i class="fa-solid fa-network-wired"></i>
             <span>TKJ</span> SMKN 2 Tembilahan
         </div>
@@ -430,6 +504,7 @@
             <li><a href="#home">Beranda</a></li>
             <li><a href="#materi">Pengetahuan TKJ</a></li>
             <li><a href="#peraturan">Peraturan</a></li>
+            <li><a href="#album">Album</a></li>
             <li><a href="#kelas">Daftar Kelas</a></li>
             <li><a href="#kontak">Kontak</a></li>
         </ul>
@@ -456,8 +531,8 @@
         </div>
     </section>
 
-    <!-- Section Pengetahuan & Modul TKJ (Baru) -->
-    <section id="materi" style="background-color: #fff;">
+    <!-- Section Pengetahuan & Modul TKJ -->
+    <section id="materi">
         <div class="section-title">
             <h2>Pengetahuan & Kompetensi TKJ</h2>
         </div>
@@ -492,7 +567,7 @@
         </div>
     </section>
 
-    <!-- Section Peraturan & Kedisiplinan (Baru) -->
+    <!-- Section Peraturan & Kedisiplinan -->
     <section id="peraturan">
         <div class="section-title">
             <h2>Peraturan & Kedisiplinan TKJ</h2>
@@ -521,8 +596,33 @@
         </div>
     </section>
 
-    <!-- Section Daftar Kelas (Tetap Sama) -->
-    <section id="kelas" style="background-color: #fff;">
+    <!-- Section Album SMKN 2 Tembilahan -->
+    <section id="album">
+        <div class="section-title">
+            <h2>Album Galeri SMKN 2 Tembilahan</h2>
+        </div>
+        <div class="album-grid">
+            <div class="album-item">
+                <img src="jurusan.jpg" alt="Praktikum Jaringan">
+                <div class="album-caption">Praktikum Jaringan Komputer</div>
+            </div>
+            <div class="album-item">
+                <img src="lapangan.jpg" alt="Kegiatan Pembelajaran">
+                <div class="album-caption">Suasana Belajar di Lab</div>
+            </div>
+            <div class="album-item">
+                <img src="goro.jpg" alt="Kegiatan Upacara">
+                <div class="album-caption">Kegiatan Sekolah</div>
+            </div>
+            <div class="album-item">
+                <img src="baris.jpg" alt="Diskusi Siswa">
+                <div class="album-caption">Kerja Kelompok Siswa TKJ</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Daftar Kelas -->
+    <section id="kelas">
         <div class="section-title">
             <h2>Data Kelas & Siswa</h2>
         </div>
@@ -569,14 +669,14 @@
                 <div class="class-info">
                     <h3>12 TKJ 1</h3>
                     <p>Kelas 12 Tingkat Akhir</p>
-                    <div class="badge">26 Siswa</div>
+                    <div class="badge">35 Siswa</div>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- Section Kontak (Tetap Sama) -->
+    <!-- Section Kontak -->
     <section id="kontak">
         <div class="contact-section">
             <div class="section-title">
@@ -693,7 +793,6 @@
             document.getElementById('modalBox').style.display = 'none';
         }
 
-        // Tutup modal jika mengklik luar area box
         window.onclick = function(event) {
             const modal = document.getElementById('modalBox');
             if (event.target == modal) {
